@@ -1,0 +1,24 @@
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.exe
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.deps.json
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.runtimeconfig.json
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.pdb
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.csproj.AssemblyReference.cache
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\App.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools_MarkupCompile.cache
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools_MarkupCompile.lref
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.g.resources
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.AssemblyInfoInputs.cache
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.AssemblyInfo.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.csproj.CoreCompileInputs.cache
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\refint\AVCAD Cable Tools.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.pdb
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.genruntimeconfig.cache
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\ref\AVCAD Cable Tools.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\SpreadsheetLight.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.csproj.CopyComplete

@@ -1,0 +1,43 @@
+﻿<Window x:Class="AVCAD.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AVCAD.Views" xmlns:vms="clr-namespace:AVCAD.VMs" d:DataContext="{d:DesignInstance Type=vms:ApplicationVM}"
+        mc:Ignorable="d"
+        Title="AVCAD Cable Tools">
+    <StackPanel Orientation="Vertical" Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                <Button Content="LoadExcelButton" Margin="10" Width="130" HorizontalAlignment="Left"></Button>
+            </StackPanel>
+
+            <DataGrid Grid.Column="0" Grid.Row="1" Name="CablesDataGrid" ItemsSource="{Binding AvcadCables}" Margin="10" AutoGenerateColumns="False"
+                      CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Cable Number"  Binding="{Binding CableNumber}"/>
+                    <DataGridTextColumn Header="Sysname Out" Binding="{Binding SysnameOut}" />
+                    <DataGridTextColumn Header="Connector Out" Binding="{Binding ConnectorOut}" />
+                    <DataGridTextColumn Header="Port Out" Binding="{Binding PortOut}" />
+                    <DataGridTextColumn Header="Model Out" Binding="{Binding ModelOut}" />
+                    <DataGridTextColumn Header="Location Out" Binding="{Binding LocationOut}" />
+                    <DataGridTextColumn Header="Sysname In" Binding="{Binding SysnameIn}" />
+                    <DataGridTextColumn Header="Connector In" Binding="{Binding ConnectorIn}" />
+                    <DataGridTextColumn Header="Port In" Binding="{Binding PortIn}" />
+                    <DataGridTextColumn Header="Model In" Binding="{Binding ModelIn}" />
+                    <DataGridTextColumn Header="Location In" Binding="{Binding LocationIn}" />
+                    <DataGridTextColumn Header="Cable Type" Binding="{Binding CableType}" />
+                    <DataGridTextColumn Header="Cable Length" Binding="{Binding CableLength}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </StackPanel>
+</Window>

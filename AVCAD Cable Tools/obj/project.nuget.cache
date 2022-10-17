@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "+5ZOHonUZ3EZfkzP+dBVBVx0DRNXBMX1jQMuDAL9+2qAZEavbx86oepA1vZjJMdE+0TOD3nlshAj3snj9T76EQ==",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\AVCAD Cable Tools\\AVCAD Cable Tools\\AVCAD Cable Tools.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Denis\\.nuget\\packages\\documentformat.openxml\\2.11.3\\documentformat.openxml.2.11.3.nupkg.sha512",
+    "C:\\Users\\Denis\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\Denis\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\Denis\\.nuget\\packages\\spreadsheetlight\\3.5.0\\spreadsheetlight.3.5.0.nupkg.sha512",
+    "C:\\Users\\Denis\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512",
+    "C:\\Users\\Denis\\.nuget\\packages\\system.io.packaging\\4.7.0\\system.io.packaging.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
