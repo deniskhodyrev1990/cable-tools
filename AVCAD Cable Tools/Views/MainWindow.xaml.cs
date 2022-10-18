@@ -23,7 +23,6 @@ namespace AVCAD.Views
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new VMs.ApplicationVM();
         }
     }
 }

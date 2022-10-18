@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AVCAD.ViewModels;
+using AVCAD.Views;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,16 @@ namespace AVCAD
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainWindowViewModel()
+            };
+            MainWindow.Show();
+            base.OnStartup(e);
+        }
+            
     }
 }
+

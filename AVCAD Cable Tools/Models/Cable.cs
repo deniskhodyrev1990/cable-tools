@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using DocumentFormat.OpenXml.Vml.Office;
 using AVCAD.Models;
@@ -38,7 +37,7 @@ namespace AVCAD.Models
         //Compare one cable to another.
         public override bool Equals(object? obj)
         {
-            return obj is Cable cable && CableId == cable.CableId &&
+            return obj is Cable cable && CableNumber == cable.CableNumber &&
                 SysnameOut == cable.SysnameOut && ConnectorOut == cable.ConnectorOut && PortOut == cable.PortOut && LocationOut == cable.LocationOut && 
                 ModelOut == cable.ModelOut &&
                 SysnameIn == cable.SysnameIn && ConnectorIn == cable.ConnectorIn && PortIn == cable.PortIn && LocationIn == cable.LocationIn &&
@@ -51,7 +50,7 @@ namespace AVCAD.Models
         {
             return new
             {
-                CableId,
+                CableNumber,
                 SysnameOut,
                 ConnectorOut,
                 PortOut,
@@ -67,12 +66,6 @@ namespace AVCAD.Models
             }.GetHashCode();
         }
 
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //public void OnPropertyChanged([CallerMemberName] string prop = "")
-        //{
-        //    if (PropertyChanged != null)
-        //        PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        //}
 
     }
 }

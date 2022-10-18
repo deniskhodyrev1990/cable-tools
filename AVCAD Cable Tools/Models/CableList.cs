@@ -6,20 +6,22 @@ using System.Threading.Tasks;
 
 namespace AVCAD.Models
 {
+
     public class CableList
     {
-        public string? Name { get; set; }
+        public string? FileName { get; set; }
         private List<Cable> _cables;
 
         public CableList()
         {
+
             this._cables = new List<Cable>();
         }
 
-        public IEnumerable<Cable> GetCables()
-        {
-            return Excel.ExcelMethods.GetCablesFromCableListExcel();
-        }
+        //public IEnumerable<Cable> GetCables()
+        //{
+        //    //return Excel.ExcelMethods.GetCablesFromCableListExcel();
+        //}
 
 
     }
