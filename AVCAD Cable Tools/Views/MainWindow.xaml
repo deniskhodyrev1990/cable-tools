@@ -5,55 +5,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AVCAD.Views" xmlns:vms="clr-namespace:AVCAD.ViewModels" 
         mc:Ignorable="d"
-        Title="AVCAD Cable Tools">
-    <StackPanel Orientation="Vertical" Margin="10">
-        <Grid DataContext="{Binding CurrentViewModel}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.8*"></ColumnDefinition>
-                <ColumnDefinition Width="0.2*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <StackPanel 
+        Title="AVCAD Cable Tools" SizeToContent="WidthAndHeight">
+    <TabControl>
+        <TabItem Header="Cable List">
+            <StackPanel Orientation="Vertical" Margin="10">
+                <Grid DataContext="{Binding CurrentViewModel}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel 
                 Orientation="Horizontal"
                 Grid.Column="0" 
                 Grid.Row="0">
-                <Button 
+                        <Button 
                     Content="Load Excel" 
                     Margin="10" 
                     Width="130" 
                     HorizontalAlignment="Left"
                     Command="{Binding LoadExcelFileCommand}"/>
-                <TextBlock 
+                        <Button 
+                    Content="Save Excel" 
+                    Margin="10" 
+                    Width="130" 
+                    HorizontalAlignment="Left"
+                    Command="{Binding SaveExcelFileCommand}"/>
+                        <Button 
+                    Content="Make Multicore" 
+                    Margin="10" 
+                    Width="130" 
+                    HorizontalAlignment="Left"
+                    Command="{Binding MakeMulticoreCommand}"/>
+                        <Button 
+                    Content="Create Cutlist" 
+                    Margin="10" 
+                    Width="130" 
+                    HorizontalAlignment="Left"
+                    Command="{Binding CreateCutListCommand}"/>
+                        <TextBlock 
+                    VerticalAlignment="Center"
                     Text="{Binding Filename}"/>
-            </StackPanel>
-            <DataGrid 
+                    </StackPanel>
+                    <DataGrid 
                 Grid.Column="0" 
                 Grid.Row="1" 
                 Name="CablesDataGrid" 
-                ItemsSource="{Binding Cables}" 
+                ItemsSource="{Binding Cables, Mode=OneWay}" 
                 Margin="10" 
                 AutoGenerateColumns="False"
                 CanUserAddRows="False" 
                 CanUserDeleteRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Cable Number"  Binding="{Binding CableNumber}"/>
-                    <DataGridTextColumn Header="Sysname Out" Binding="{Binding SysnameOut}" />
-                    <DataGridTextColumn Header="Connector Out" Binding="{Binding ConnectorOut}" />
-                    <DataGridTextColumn Header="Port Out" Binding="{Binding PortOut}" />
-                    <DataGridTextColumn Header="Model Out" Binding="{Binding ModelOut}" />
-                    <DataGridTextColumn Header="Location Out" Binding="{Binding LocationOut}" />
-                    <DataGridTextColumn Header="Sysname In" Binding="{Binding SysnameIn}" />
-                    <DataGridTextColumn Header="Connector In" Binding="{Binding ConnectorIn}" />
-                    <DataGridTextColumn Header="Port In" Binding="{Binding PortIn}" />
-                    <DataGridTextColumn Header="Model In" Binding="{Binding ModelIn}" />
-                    <DataGridTextColumn Header="Location In" Binding="{Binding LocationIn}" />
-                    <DataGridTextColumn Header="Cable Type" Binding="{Binding CableType}" />
-                    <DataGridTextColumn Header="Cable Length" Binding="{Binding CableLength}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-    </StackPanel>
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="IsSelected"
+                    Value="{Binding IsSelected}" />
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Cable Number"  Binding="{Binding CableNumber}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Sysname Out" Binding="{Binding SysnameOut}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Connector Out" Binding="{Binding ConnectorOut}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Port Out" Binding="{Binding PortOut}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Model Out" Binding="{Binding ModelOut}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Location Out" Binding="{Binding LocationOut}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Sysname In" Binding="{Binding SysnameIn}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Connector In" Binding="{Binding ConnectorIn}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Port In" Binding="{Binding PortIn}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Model In" Binding="{Binding ModelIn}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Location In" Binding="{Binding LocationIn}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Cable Type" Binding="{Binding CableType}" />
+                            <DataGridTextColumn Header="Cable Length" Binding="{Binding CableLength}" />
+                            <DataGridTextColumn Header="Multicore" Binding="{Binding IsMulticore}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Cable Types"></TabItem>
+        <TabItem Header="Cable Reels"></TabItem>
+    </TabControl>
+
 </Window>

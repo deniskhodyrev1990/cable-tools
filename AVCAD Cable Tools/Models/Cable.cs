@@ -16,12 +16,12 @@ namespace AVCAD.Models
         public string? CableNumber { get; set; }
         public string? SysnameOut { get; set; }
         public string? ConnectorOut { get; set; }
-        public string? PortOut { get; set; }
+        public string? DescriptionOut { get; set; }
         public string? LocationOut { get; set; }
         public string? ModelOut { get; set; }
         public string? SysnameIn { get; set; }
         public string? ConnectorIn { get; set; }
-        public string? PortIn { get; set; }
+        public string? DescriptionIn { get; set; }
         public string? LocationIn { get; set; }
         public string? ModelIn { get; set; }
         public CableType CableType { get; set; }
@@ -38,9 +38,9 @@ namespace AVCAD.Models
         public override bool Equals(object? obj)
         {
             return obj is Cable cable && CableNumber == cable.CableNumber &&
-                SysnameOut == cable.SysnameOut && ConnectorOut == cable.ConnectorOut && PortOut == cable.PortOut && LocationOut == cable.LocationOut && 
+                SysnameOut == cable.SysnameOut && ConnectorOut == cable.ConnectorOut && DescriptionOut == cable.DescriptionOut && LocationOut == cable.LocationOut && 
                 ModelOut == cable.ModelOut &&
-                SysnameIn == cable.SysnameIn && ConnectorIn == cable.ConnectorIn && PortIn == cable.PortIn && LocationIn == cable.LocationIn &&
+                SysnameIn == cable.SysnameIn && ConnectorIn == cable.ConnectorIn && DescriptionIn == cable.DescriptionIn && LocationIn == cable.LocationIn &&
                 ModelIn == cable.ModelIn &&
                 CableType == cable.CableType;
         }
@@ -53,12 +53,12 @@ namespace AVCAD.Models
                 CableNumber,
                 SysnameOut,
                 ConnectorOut,
-                PortOut,
+                DescriptionOut,
                 LocationOut,
                 ModelOut,
                 SysnameIn,
                 ConnectorIn,
-                PortIn,
+                DescriptionIn,
                 LocationIn,
                 ModelIn,
                 CableType,

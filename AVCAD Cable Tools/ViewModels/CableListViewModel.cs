@@ -15,8 +15,8 @@ namespace AVCAD.ViewModels
 
         public IEnumerable<CableViewModel> Cables => _cables;
 
-        private string _fileName;
-        public string Filename
+        private string? _fileName;
+        public string? Filename
         {
             get
             {
@@ -31,14 +31,27 @@ namespace AVCAD.ViewModels
 
 
         public ICommand LoadExcelFileCommand { get; }
+        public ICommand SaveExcelFileCommand { get; }
+        public ICommand MakeMulticoreCommand { get; }
+        public ICommand CreateCutListCommand { get; }
 
         public CableListViewModel()
         {
             LoadExcelFileCommand = new Commands.LoadExcelFileCommand(this);
-
+            SaveExcelFileCommand = new Commands.SaveExcelFileCommand(this);
+            MakeMulticoreCommand = new Commands.MakeMulticoreCommand(this);
+            CreateCutListCommand = new Commands.CreateCutListCommand(this);
             _cables = new ObservableCollection<CableViewModel>();
+        }
 
+        public void AddCable(Models.Cable cable)
+        {
+            _cables.Add(new CableViewModel(cable));
+        }
 
+        public void SetMulticoreFlag(Models.Cable cable)
+        {
+            //_cables.Rep(new CableViewModel(cable));
         }
     }
 }

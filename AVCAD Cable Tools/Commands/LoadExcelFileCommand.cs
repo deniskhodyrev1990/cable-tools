@@ -9,18 +9,22 @@ namespace AVCAD.Commands
 {
     public class LoadExcelFileCommand : CommandBase
     {
-        private CableListViewModel _cableListViewModel;
+        private readonly CableListViewModel _cableListViewModel;
 
         public LoadExcelFileCommand(CableListViewModel cableListViewModel)
         {
-            this._cableListViewModel = cableListViewModel;
+            _cableListViewModel = cableListViewModel;
         }
 
         public override void Execute(object? parameter)
         {
             var cables = Excel.ExcelMethods.GetCablesFromCableListExcel(out string fileName);
-            this._cableListViewModel.Filename = fileName;
-            
+            _cableListViewModel.Filename = fileName;
+
+            foreach (var cable in cables)
+                _cableListViewModel.AddCable(cable);
+
+
         }
     }
 }

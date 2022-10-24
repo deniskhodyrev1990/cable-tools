@@ -1,4 +1,5 @@
-﻿using AVCAD.ViewModels;
+﻿using AVCAD.Models;
+using AVCAD.ViewModels;
 using SpreadsheetLight;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace AVCAD.Excel
 {
     public static class ExcelMethods
     {
-        readonly static List<String> _headers = new List<string> { "CableNumber", "SysnameOut", "ConnectorOut", "PortOut", "LocationOut" ,"ModelOut" ,
-        "SysnameIn", "ConnectorIn", "PortIn", "LocationIn", "CableType", "CableLength"};
+        readonly static List<String> _headers = new List<string> { "CableNumber", "SysnameOut", "ConnectorOut", "DescriptionOut", "LocationOut" ,"ModelOut" ,
+        "SysnameIn", "ConnectorIn", "DescriptionIn", "LocationIn", "ModelIn", "Cable Type", "Cable Length"};
 
         public static List<Models.Cable> GetCablesFromCableListExcel(out String filename)
         {
@@ -28,32 +29,45 @@ namespace AVCAD.Excel
             if (dlg.ShowDialog() == true)
             {
                 filename = dlg.FileName;
-                //SLDocument sld = new SLDocument(dlg.FileName);
-                //SLWorksheetStatistics stats = sld.GetWorksheetStatistics();
+                SLDocument sld = new SLDocument(dlg.FileName);
+                SLWorksheetStatistics stats = sld.GetWorksheetStatistics();
 
-                //var headers = new Dictionary<int, string>();
-                //for (int i = 1; i <= stats.EndColumnIndex; i++)
-                //{
-                //    headers.Add(i, sld.GetCellValueAsString(1, i));
-                //}
+                var headers = new Dictionary<string, int>();
+                for (int i = 1; i <= stats.EndColumnIndex; i++)
+                {
+                    headers.Add(sld.GetCellValueAsString(1, i), i);
+                }
 
-                //if (headers.Count < _headers.Count)
-                //{
-                //    throw new Exceptions.ExcelHeadersException("You have a wrong number of headers.");
-                //}
+                if (headers.Count < _headers.Count)
+                {
+                    throw new Exceptions.ExcelHeadersException("You have a wrong number of headers.");
+                }
 
+                for (int j = 2; j < stats.EndRowIndex; j++)
+                {
+                    var cable = new Models.Cable
+                    {
+                        CableNumber = sld.GetCellValueAsString(j, headers["CableNumber"]),
+                        SysnameOut = sld.GetCellValueAsString(j, headers["SysnameOut"]),
+                        ConnectorOut = sld.GetCellValueAsString(j, headers["ConnectorOut"]),
+                        DescriptionOut = sld.GetCellValueAsString(j, headers["DescriptionOut"]),
+                        LocationOut = sld.GetCellValueAsString(j, headers["LocationOut"]),
+                        ModelOut = sld.GetCellValueAsString(j, headers["ModelOut"]),
+                        SysnameIn = sld.GetCellValueAsString(j, headers["SysnameIn"]),
+                        ConnectorIn = sld.GetCellValueAsString(j, headers["ConnectorIn"]),
+                        DescriptionIn = sld.GetCellValueAsString(j, headers["DescriptionIn"]),
+                        LocationIn = sld.GetCellValueAsString(j, headers["LocationIn"]),
+                        ModelIn = sld.GetCellValueAsString(j, headers["ModelIn"]),
+                        CableType = new Models.CableType(sld.GetCellValueAsString(j, headers["Cable Type"])),
+                        CableLength = sld.GetCellValueAsDouble(j, headers["Cable Length"]),
+                    };
+                    cables.Add(cable);
+                }
 
 
             }
-
-
-
-            cables.Add(new Models.Cable() { CableNumber = "T1" });
-            cables.Add(new Models.Cable() { CableNumber = "T2" });
-            cables.Add(new Models.Cable() { CableNumber = "T3" });
-
             return cables;
-        }
 
-	}
+        }
+    }
 }
