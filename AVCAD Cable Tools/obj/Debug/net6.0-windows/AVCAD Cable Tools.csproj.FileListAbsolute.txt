@@ -22,3 +22,4 @@ C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Spreads
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.csproj.CopyComplete
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs

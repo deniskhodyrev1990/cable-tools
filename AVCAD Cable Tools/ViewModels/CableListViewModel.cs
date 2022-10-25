@@ -34,6 +34,7 @@ namespace AVCAD.ViewModels
         public ICommand SaveExcelFileCommand { get; }
         public ICommand MakeMulticoreCommand { get; }
         public ICommand CreateCutListCommand { get; }
+        public ICommand ExcludeFromMulticoreCommand { get; }
 
         public CableListViewModel()
         {
@@ -41,6 +42,8 @@ namespace AVCAD.ViewModels
             SaveExcelFileCommand = new Commands.SaveExcelFileCommand(this);
             MakeMulticoreCommand = new Commands.MakeMulticoreCommand(this);
             CreateCutListCommand = new Commands.CreateCutListCommand(this);
+            ExcludeFromMulticoreCommand = new Commands.ExcludeFromMulticoreCommand(this);
+
             _cables = new ObservableCollection<CableViewModel>();
         }
 

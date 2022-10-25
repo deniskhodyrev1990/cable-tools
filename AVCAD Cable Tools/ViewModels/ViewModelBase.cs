@@ -14,7 +14,7 @@ namespace AVCAD.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="propertyName">sdasdas</param>
+        /// <param name="propertyName"></param>
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

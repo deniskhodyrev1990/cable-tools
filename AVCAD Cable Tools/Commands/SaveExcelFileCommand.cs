@@ -19,7 +19,8 @@ namespace AVCAD.Commands
 
         public override void Execute(object? parameter)
         {
-            MessageBox.Show("Save Excel");
+            cableListViewModel.Cables.Where(x => x.IsMulticore).ToList();
+            int x = 5;
         }
     }
 }

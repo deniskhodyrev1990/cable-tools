@@ -4,15 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AVCAD.Views" xmlns:vms="clr-namespace:AVCAD.ViewModels" 
+        xmlns:converters="clr-namespace:AVCAD.Converters"
         mc:Ignorable="d"
-        Title="AVCAD Cable Tools" SizeToContent="WidthAndHeight">
+        Title="AVCAD Cable Tools" SizeToContent="WidthAndHeight" x:Name="MainProgramWindow">
+    <Window.Resources>
+        <converters:MulticoreMembersConverter x:Key="MulticoreMembersConverter"></converters:MulticoreMembersConverter>
+    </Window.Resources>
     <TabControl>
         <TabItem Header="Cable List">
             <StackPanel Orientation="Vertical" Margin="10">
                 <Grid DataContext="{Binding CurrentViewModel}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.8*"></ColumnDefinition>
-                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                        <ColumnDefinition Width="1.0*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -58,7 +61,8 @@
                 Margin="10" 
                 AutoGenerateColumns="False"
                 CanUserAddRows="False" 
-                CanUserDeleteRows="False">
+                CanUserDeleteRows="False"
+                >
                         <DataGrid.Resources>
                             <Style TargetType="DataGridRow">
                                 <Setter Property="IsSelected"
@@ -79,14 +83,52 @@
                             <DataGridTextColumn Header="Location In" Binding="{Binding LocationIn}" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Cable Type" Binding="{Binding CableType}" />
                             <DataGridTextColumn Header="Cable Length" Binding="{Binding CableLength}" />
-                            <DataGridTextColumn Header="Multicore" Binding="{Binding IsMulticore}"/>
+                            <DataGridTextColumn Header="Is Multicore" Binding="{Binding IsMulticore}" />
+                            <DataGridTextColumn Header="Multicore Members" Binding="{Binding MulticoreMembers, Converter={StaticResource MulticoreMembersConverter}}" IsReadOnly="True"/>
                         </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Exclude from multicore" Command="{Binding ExcludeFromMulticoreCommand}"></MenuItem>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
                     </DataGrid>
                 </Grid>
             </StackPanel>
         </TabItem>
-        <TabItem Header="Cable Types"></TabItem>
-        <TabItem Header="Cable Reels"></TabItem>
+        <TabItem Header="Cable Types">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"></RowDefinition>
+                    <RowDefinition Height="0.9*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="10">
+                    <Button
+                        Content="Load SQLite database"></Button>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <ListView x:Name="CableTypesListView">
+
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Cable Reels">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"></RowDefinition>
+                    <RowDefinition Height="0.9*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="10">
+                    <Button
+                        Content="Load SQLite database"></Button>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <ListView x:Name="CableReelsListView">
+
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </TabItem>
     </TabControl>
 
 </Window>

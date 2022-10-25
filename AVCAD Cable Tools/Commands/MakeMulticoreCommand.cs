@@ -1,6 +1,7 @@
 ﻿using AVCAD.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,20 +15,29 @@ namespace AVCAD.Commands
 
         public MakeMulticoreCommand(CableListViewModel cableListViewModel)
         {
-            this.cableListViewModel = cableListViewModel;
-            
+            this.cableListViewModel = cableListViewModel;    
         }
+
 
         public override void Execute(object? parameter)
         {
-            var selected = cableListViewModel.Cables.Where(x => x.IsSelected);
-            foreach (var cable in selected)
+            var selectedCables = cableListViewModel.Cables.Where(x => x.IsSelected).ToList();
+            if (selectedCables.Count > 1)
             {
-                if (cable.IsMulticore)
-                    cable.IsMulticore = false;
-                else
-                    cable.IsMulticore = true;
+                foreach (var cable in selectedCables)
+                {
+                    if (cable.IsMulticore)
+                    {
+                        cable.IsMulticore = false;
+                    }
+                    else
+                    {
+                        cable.IsMulticore = true;
+                        cable.MulticoreMembers = new ObservableCollection<ViewModels.CableViewModel>(selectedCables);
+                    }
+                }
             }
+
         }
     }
 }
