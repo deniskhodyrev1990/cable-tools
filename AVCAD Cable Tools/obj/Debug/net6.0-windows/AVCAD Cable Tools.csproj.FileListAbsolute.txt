@@ -3,23 +3,72 @@ C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD C
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.runtimeconfig.json
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.dll
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.pdb
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\MaterialDesignColors.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\MaterialDesignThemes.Wpf.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Data.Sqlite.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Sqlite.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyModel.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\SpreadsheetLight.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\SQLitePCLRaw.batteries_v2.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\SQLitePCLRaw.core.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\SQLitePCLRaw.provider.e_sqlite3.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\alpine-x64\native\libe_sqlite3.so
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\linux-arm\native\libe_sqlite3.so
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\linux-arm64\native\libe_sqlite3.so
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\linux-armel\native\libe_sqlite3.so
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\linux-mips64\native\libe_sqlite3.so
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\linux-musl-x64\native\libe_sqlite3.so
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\linux-s390x\native\libe_sqlite3.so
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libe_sqlite3.so
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\linux-x86\native\libe_sqlite3.so
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\osx-arm64\native\libe_sqlite3.dylib
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\osx-x64\native\libe_sqlite3.dylib
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\win-arm\native\e_sqlite3.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\win-arm64\native\e_sqlite3.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\win-x64\native\e_sqlite3.dll
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtimes\win-x86\native\e_sqlite3.dll
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.csproj.AssemblyReference.cache
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateEditCableReel.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateEditCableType.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableListView.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableReelsView.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableTypesView.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\UnitsView.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\App.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools_Content.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools_MarkupCompile.cache
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools_MarkupCompile.lref
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\App.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateEditCableReel.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateEditCableType.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableListView.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableReelsView.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableTypesView.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\UnitsView.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.g.resources
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.GeneratedMSBuildEditorConfig.editorconfig
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.AssemblyInfoInputs.cache
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.AssemblyInfo.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.csproj.CoreCompileInputs.cache
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.csproj.CopyComplete
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.dll
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\refint\AVCAD Cable Tools.dll
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.pdb
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.genruntimeconfig.cache
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\ref\AVCAD Cable Tools.dll
-C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll
-C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\SpreadsheetLight.dll
-C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.g.cs
-C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.baml
-C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.csproj.CopyComplete
-C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs

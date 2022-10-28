@@ -8,8 +8,6 @@ namespace AVCAD.Exceptions
 {
     public class ExcelHeadersException: Exception
     {
-
         public ExcelHeadersException(string message) : base(message){}
-
     }
 }

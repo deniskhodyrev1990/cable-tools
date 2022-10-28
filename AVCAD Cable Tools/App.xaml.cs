@@ -19,8 +19,9 @@ namespace AVCAD
         {
             MainWindow = new MainWindow()
             {
-                DataContext = new MainWindowViewModel()
+                //DataContext = new MainWindowViewModel()
             };
+
             MainWindow.Show();
             base.OnStartup(e);
         }

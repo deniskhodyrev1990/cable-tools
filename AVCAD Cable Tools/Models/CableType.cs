@@ -8,7 +8,16 @@ namespace AVCAD.Models
 {
     public class CableType
     {
+        public long Id { get; set; }
         public string Type { get; set; }
+        public string? AWG { get; set; }
+        public double? MaxLength { get; set; }
+
+        public CableType()
+        {
+
+        }
+
         public CableType(string type)
         {
             Type = type;
@@ -22,6 +31,11 @@ namespace AVCAD.Models
         public override int GetHashCode()
         {
             return HashCode.Combine(Type);
+        }
+
+        public override string ToString()
+        {
+            return $"{Type}";
         }
     }
 }

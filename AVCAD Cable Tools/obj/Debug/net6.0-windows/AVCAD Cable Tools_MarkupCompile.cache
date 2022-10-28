@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\App.xaml
-1-1644662438
-
-22-664108147
-1971085228485
-Views\MainWindow.xaml;
+72031548596
+167268463
+40-1874525462
+217-1047279014
+GUI\CreateEditCableReel.xaml;GUI\CreateEditCableType.xaml;Views\CableListView.xaml;Views\CableReelsView.xaml;Views\CableTypesView.xaml;Views\MainWindow.xaml;Views\UnitsView.xaml;
 
 False
 

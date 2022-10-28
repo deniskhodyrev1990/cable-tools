@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -9,8 +10,8 @@ namespace AVCAD.Models
 {
     public class CableReel
     {
+        public long Id { get; set; }
         public double Length { get; set; }
-        public Unit Unit { get; set; }
         public string Name { get; set; }
         public CableType CableType { get; set; }
 

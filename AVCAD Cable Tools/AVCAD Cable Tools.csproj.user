@@ -7,7 +7,42 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="GUI\CreateEditCableType.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CableListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CableReelsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CableTypesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\UnitsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="GUI\CreateEditCableReel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\CreateEditCableType.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CableListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CableReelsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CableTypesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UnitsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

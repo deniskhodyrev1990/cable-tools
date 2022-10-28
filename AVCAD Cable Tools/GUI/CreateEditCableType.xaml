@@ -1,0 +1,52 @@
+﻿<Window x:Class="AVCAD.GUI.CreateEditCableType"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AVCAD.GUI"
+        mc:Ignorable="d" 
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        MinWidth="250">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Label Margin="10,10,10,2">Cable Type</Label>
+            <TextBox 
+                x:Name="TypeTextBox" 
+                Margin="10,2,10,10"
+                Text="{Binding Type}"
+                ></TextBox>
+            <Label Margin="10,10,10,2">AWG</Label>
+            <TextBox 
+                x:Name="AwgTextBox"
+                Margin="10,2,10,10"
+                Text="{Binding AWG}"
+                ></TextBox>
+            <Label Margin="10,10,10,2">Max Length</Label>
+            <TextBox 
+                x:Name="MaxLengthTextBox" 
+                Margin="10,2,10,10" 
+                Text="{Binding MaxLength}"
+                ></TextBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button 
+                    x:Name="SubmitBNT"
+                    Content="Submit"
+                    Margin="10"
+                    Background="#2C91BD"
+                    BorderBrush="#F9C757" 
+                    Click="SubmitBNT_Click"
+                    ></Button>
+                <Button 
+                    x:Name="CancelBNT"
+                    Content="Cancel"
+                    Margin="10"
+                    Background="#2C91BD"
+                    BorderBrush="#F9C757"
+                    HorizontalAlignment="Right"
+                    ></Button>
+            </StackPanel>
+           
+        </StackPanel>
+    </Grid>
+</Window>

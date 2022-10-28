@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AVCAD.ViewModels;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Frame = System.Windows.Controls.Frame;
 
 namespace AVCAD.Views
 {
@@ -23,6 +26,31 @@ namespace AVCAD.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+
+        private void UpdateFrameDataContext(object sender, NavigationEventArgs e, ViewModelBase viewModelBase)
+        {
+            var content = (sender as Frame).Content as FrameworkElement;
+            if (content == null)
+                return;
+            content.DataContext = viewModelBase;
+        }
+
+        private void CableListFrame_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            UpdateFrameDataContext(sender, e, new CableListViewModel());
+        }
+
+
+        private void CableTypesFrame_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            UpdateFrameDataContext(sender, e, new CableTypesPageViewModel());
+        }
+
+        private void CableReelsFrame_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            UpdateFrameDataContext(sender, e, new CableReelsPageViewModel());
         }
     }
 }

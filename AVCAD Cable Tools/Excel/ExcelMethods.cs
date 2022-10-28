@@ -43,6 +43,12 @@ namespace AVCAD.Excel
                     throw new Exceptions.ExcelHeadersException("You have a wrong number of headers.");
                 }
 
+                var headersInExcel = headers.Select(x => x.Key).ToList();
+                if (headersInExcel.Except(_headers).ToList().Count != 0)
+                {
+                    throw new Exceptions.ExcelHeadersException("There is something wrong with headers. Possibly there is a different number.");
+                }
+
                 for (int j = 2; j < stats.EndRowIndex; j++)
                 {
                     var cable = new Models.Cable
