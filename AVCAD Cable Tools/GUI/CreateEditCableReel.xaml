@@ -7,7 +7,8 @@
         mc:Ignorable="d" 
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
-        MinWidth="250">
+        WindowStartupLocation="CenterScreen"
+        MinWidth="250" >
     <Grid>
         <StackPanel Orientation="Vertical">
             <Label Margin="10,10,10,2">Name</Label>
@@ -24,6 +25,8 @@
             <ComboBox
                 Margin="10,2,10,10"
                 SelectedValue="{Binding CableType}"
+                IsTextSearchEnabled="True"
+                IsTextSearchCaseSensitive="False"
                 x:Name="CableTypesComboBox">
                 </ComboBox>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -31,17 +34,13 @@
                     x:Name="SubmitBNT"
                     Content="Submit"
                     Margin="10"
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757" 
                     Click="SubmitBNT_Click"
                     ></Button>
                 <Button 
                     x:Name="CancelBNT"
                     Content="Cancel"
                     Margin="10"
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Right" Click="CancelBNT_Click"
                     ></Button>
             </StackPanel>
            

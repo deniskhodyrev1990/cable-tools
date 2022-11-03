@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\App.xaml
-72031548596
+11644848467
 167268463
-40-1874525462
+471708323667
 217-1047279014
-GUI\CreateEditCableReel.xaml;GUI\CreateEditCableType.xaml;Views\CableListView.xaml;Views\CableReelsView.xaml;Views\CableTypesView.xaml;Views\MainWindow.xaml;Views\UnitsView.xaml;
+GUI\CreateEditCableReel.xaml;GUI\CreateEditCableType.xaml;GUI\CreateMulticoreProperties.xaml;GUI\CutListExportProperties.xaml;GUI\SelectCableTypeForCables.xaml;Views\CableListView.xaml;Views\CableReelsView.xaml;Views\CableTypesView.xaml;Views\MainWindow.xaml;Views\SettingsView.xaml;Views\UnitsView.xaml;
 
 False
 

@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace AVCAD.ViewModels
@@ -16,6 +17,8 @@ namespace AVCAD.ViewModels
         private bool isSelected;
         private ObservableCollection<CableViewModel> multicoreMembers;
         private double cableLength;
+        private double extraLength;
+        private string cableType;
 
         public string? CableNumber => _cable.CableNumber;
         public string? SysnameOut => _cable.SysnameOut;
@@ -28,7 +31,35 @@ namespace AVCAD.ViewModels
         public string? PortIn => _cable.DescriptionIn;
         public string? LocationIn => _cable.LocationIn;
         public string? ModelIn => _cable.ModelIn;
-        public string? CableType => _cable.CableType?.Type;
+
+        public Visibility SysnameOutVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.SysnameOutVisibility ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+        public string CableType
+        {
+            get
+            {
+                return cableType;
+            }
+            set
+            {
+                cableType = value;
+                if (IsMulticore)
+                {
+                    foreach (var c in MulticoreMembers)
+                    {
+                        if (c.CableType != cableType)
+                            ChangeMulticoreType(c, cableType);
+                    }
+                }
+                OnPropertyChanged("CableType");
+            }
+        }
+
         public double CableLength
         {
             get
@@ -63,7 +94,6 @@ namespace AVCAD.ViewModels
             }
         }
 
-
         public ObservableCollection<CableViewModel> MulticoreMembers
         {
             get
@@ -91,11 +121,45 @@ namespace AVCAD.ViewModels
             }
         }
 
+        public double ExtraLength
+        {
+            get
+            {
+                return extraLength;
+            }
+            set
+            {
+                extraLength = value;
+                if (IsMulticore)
+                {
+                    foreach (var c in MulticoreMembers)
+                    {
+                        if (c.ExtraLength != extraLength)
+                            ChangeExtraLength(c, extraLength);
+                    }
+                }
+                OnPropertyChanged("ExtraLength");
+            }
+        }
+
 
 
         public CableViewModel(Models.Cable cable)
         {
             _cable = cable;
+            CableLength = cable.CableLength;
+            CableType = cable.CableType.Type;
+            ExtraLength = cable.ExtraLength;
+            MulticoreMembers = new ObservableCollection<CableViewModel>();
+
+            if (!String.IsNullOrEmpty(cable.MulticoreMembers))
+            {
+                IsMulticore = true;
+            }
+        }
+
+        public CableViewModel()
+        {
         }
 
         public void RemoveMulticoreMember(ViewModels.CableViewModel cvm)
@@ -108,6 +172,18 @@ namespace AVCAD.ViewModels
         {
             cvm.CableLength = length;
             OnPropertyChanged("CableLength");
+        }
+
+        private void ChangeMulticoreType(CableViewModel cvm, string cableType)
+        {
+            cvm.CableType = cableType;
+            OnPropertyChanged("CableType");
+        }
+
+        private void ChangeExtraLength(CableViewModel cvm, double extraLength)
+        {
+            cvm.ExtraLength = extraLength;
+            OnPropertyChanged("ExtraLength");
         }
 
         public override string ToString()

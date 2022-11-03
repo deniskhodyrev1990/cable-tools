@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Presentation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -15,8 +16,9 @@ namespace AVCAD.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var multicoreMembers = (ObservableCollection<ViewModels.CableViewModel>)value;
+            multicoreMembers = new ObservableCollection<ViewModels.CableViewModel>((multicoreMembers ?? new ObservableCollection<ViewModels.CableViewModel>()).OrderBy(i => i.CableNumber) );
 
-            return String.Join(", ", multicoreMembers?? new ObservableCollection<ViewModels.CableViewModel>());
+            return String.Join(", ", multicoreMembers);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

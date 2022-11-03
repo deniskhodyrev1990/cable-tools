@@ -7,6 +7,7 @@
         mc:Ignorable="d" 
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
         MinWidth="250">
     <Grid>
         <StackPanel Orientation="Vertical">
@@ -33,17 +34,13 @@
                     x:Name="SubmitBNT"
                     Content="Submit"
                     Margin="10"
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757" 
                     Click="SubmitBNT_Click"
                     ></Button>
                 <Button 
                     x:Name="CancelBNT"
                     Content="Cancel"
                     Margin="10"
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Right" Click="CancelBNT_Click"
                     ></Button>
             </StackPanel>
            

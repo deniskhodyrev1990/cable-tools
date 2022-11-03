@@ -25,37 +25,12 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Cable Reels">
-                <Frame x:Name="CableReelsFrame" Source="/Views/CableReelsview.xaml" LoadCompleted="CableReelsFrame_LoadCompleted"/>
-            </TabItem>
-
-            <TabItem Header="Logs">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.1*"></RowDefinition>
-                        <RowDefinition Height="0.9*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Margin="10">
-
-                    </StackPanel>
-                    <StackPanel Grid.Row="1">
-
-                    </StackPanel>
-                </Grid>
+                <Frame x:Name="CableReelsFrame" Source="/Views/CableReelsView.xaml" LoadCompleted="CableReelsFrame_LoadCompleted"/>
             </TabItem>
             <TabItem Header="Settings">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.1*"></RowDefinition>
-                        <RowDefinition Height="0.9*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Margin="10">
-
-                    </StackPanel>
-                    <StackPanel Grid.Row="1">
-
-                    </StackPanel>
-                </Grid>
+                <Frame x:Name="SettingsFrame" Source="/Views/SettingsView.xaml" LoadCompleted="SettingsFrame_LoadCompleted"/>
             </TabItem>
+            <!--<TabItem Header="Logs"></TabItem>-->
         </TabControl>
     </Grid>
 </Window>

@@ -26,7 +26,9 @@ namespace AVCAD.Models
         public string? ModelIn { get; set; }
         public CableType CableType { get; set; }
         public double CableLength { get; set; }
+        public double ExtraLength { get; set; }
 
+        public string MulticoreMembers { get; set; }
         public bool IsMulticore { get; set; }
 
         public Cable()

@@ -7,12 +7,13 @@
       xmlns:converters="clr-namespace:AVCAD.Converters" 
       xmlns:viewmodels="clr-namespace:AVCAD.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="CableListPage">
+
+      Title="CableListPage"
+      x:Name="CableListPage">
     <Page.Resources>
         <converters:MulticoreMembersConverter x:Key="MulticoreMembersConverter"></converters:MulticoreMembersConverter>
     </Page.Resources>
-    <StackPanel Orientation="Vertical" Margin="10">
+    <DockPanel>
         <Grid x:Name="MainWindowGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.0*"></ColumnDefinition>
@@ -22,36 +23,31 @@
                 <RowDefinition Height="0.9*"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
                 Orientation="Horizontal"
                 Grid.Column="0" 
                 Grid.Row="0">
                 <Button 
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
                     Content="Load Excel" 
                     Margin="10" 
                     Width="Auto" 
                     HorizontalAlignment="Left"
                     Command="{Binding LoadExcelFileCommand}" Cursor="Hand"/>
                 <Button 
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
                     Content="Save Excel" 
                     Margin="10" 
                     Width="Auto" 
                     HorizontalAlignment="Left"
-                    Command="{Binding SaveExcelFileCommand}"/>
+                    Command="{Binding SaveExcelFileCommand}" Cursor="Hand"/>
                 <Button 
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
                     Content="Make Multicore" 
                     Margin="10" 
                     Width="Auto"  
                     HorizontalAlignment="Left"
-                    Command="{Binding MakeMulticoreCommand}"/>
+                    Command="{Binding MakeMulticoreCommand}"
+                    CommandParameter="{Binding ElementName=CablesDataGrid, Path=SelectedItems}"/>
                 <Button 
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
                     Content="Create Cutlist" 
                     Margin="10" 
                     Width="Auto" 
@@ -64,45 +60,83 @@
             <DataGrid 
                 Grid.Column="0" 
                 Grid.Row="1" 
-                Name="CablesDataGrid" 
+                x:Name="CablesDataGrid" 
                 ItemsSource="{Binding Cables, Mode=OneWay}" 
                 Margin="10" 
                 AutoGenerateColumns="False"
                 CanUserAddRows="False" 
                 CanUserDeleteRows="False"
-                MinHeight="500" MaxHeight="550"
                 MinWidth="500"
                 >
                 <DataGrid.Resources>
                     <Style TargetType="DataGridRow">
-                        <Setter Property="IsSelected"
-                    Value="{Binding IsSelected}" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
                     </Style>
+                    <local:BindingProxy x:Key="SysnameOutVisibleProxy" Data="{Binding SysnameOutVisible}"/>
+                    <local:BindingProxy x:Key="ConnectorOutVisibleProxy" Data="{Binding ConnectorOutVisible}"/>
+                    <local:BindingProxy x:Key="PortOutVisibleProxy" Data="{Binding PortOutVisible}"/>
+                    <local:BindingProxy x:Key="ModelOutVisibleProxy" Data="{Binding ModelOutVisible}"/>
+                    <local:BindingProxy x:Key="LocationOutVisibleProxy" Data="{Binding LocationOutVisible}"/>
+                    <local:BindingProxy x:Key="SysnameInVisibleProxy" Data="{Binding SysnameInVisible}"/>
+                    <local:BindingProxy x:Key="ConnectorInVisibleProxy" Data="{Binding ConnectorInVisible}"/>
+                    <local:BindingProxy x:Key="PortInVisibleProxy" Data="{Binding PortInVisible}"/>
+                    <local:BindingProxy x:Key="ModelInVisibleProxy" Data="{Binding ModelInVisible}"/>
+                    <local:BindingProxy x:Key="LocationInVisibleProxy" Data="{Binding LocationInVisible}"/>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Cable Number"  Binding="{Binding CableNumber}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Sysname Out" Binding="{Binding SysnameOut}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Connector Out" Binding="{Binding ConnectorOut}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Port Out" Binding="{Binding PortOut}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Model Out" Binding="{Binding ModelOut}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Location Out" Binding="{Binding LocationOut}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Sysname In" Binding="{Binding SysnameIn}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Connector In" Binding="{Binding ConnectorIn}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Port In" Binding="{Binding PortIn}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Model In" Binding="{Binding ModelIn}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Location In" Binding="{Binding LocationIn}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Cable Type" Binding="{Binding CableType}" />
-                    <DataGridTextColumn Header="Cable Length" Binding="{Binding CableLength}" />
-                    <!--<DataGridTextColumn Header="Is Multicore" Binding="{Binding IsMulticore}" />-->
-                    <DataGridTextColumn Header="Multicore Members" Binding="{Binding MulticoreMembers, Converter={StaticResource MulticoreMembersConverter}}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Cable Number" Binding="{Binding CableNumber}" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Sysname Out" Binding="{Binding SysnameOut}" IsReadOnly="True" Width="Auto"  
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource SysnameOutVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Connector Out" Binding="{Binding ConnectorOut}" IsReadOnly="True" Width="Auto"
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource ConnectorOutVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Port Out" Binding="{Binding PortOut}" IsReadOnly="True" Width="Auto"
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource PortOutVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Model Out" Binding="{Binding ModelOut}" IsReadOnly="True" Width="Auto"
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource ModelOutVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Location Out" Binding="{Binding LocationOut}" IsReadOnly="True" Width="Auto"
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource LocationOutVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Sysname In" Binding="{Binding SysnameIn}" IsReadOnly="True" Width="Auto"
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource SysnameInVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Connector In" Binding="{Binding ConnectorIn}" IsReadOnly="True" Width="Auto"
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource ConnectorInVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Port In" Binding="{Binding PortIn}" IsReadOnly="True" Width="Auto"
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource PortInVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Model In" Binding="{Binding ModelIn}" IsReadOnly="True" Width="Auto"
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource ModelOutVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Location In" Binding="{Binding LocationIn}" IsReadOnly="True" Width="Auto"
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource LocationInVisibleProxy}}"/>
+                    <DataGridTextColumn Header="Cable Type" Binding="{Binding CableType}" IsReadOnly="True" Width="Auto"/>
+                    <DataGridTextColumn Header="Cable Length" Binding="{Binding CableLength}" Width="Auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Extra(%)" Binding="{Binding ExtraLength}" Width="Auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Multicore Members" Width="Auto" Binding="{Binding MulticoreMembers, Converter={StaticResource MulticoreMembersConverter}}" IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Select Cable Types" Command="{Binding SelectCableTypeCommand}"></MenuItem>
-                        <MenuItem Header="Exclude from multicore" Command="{Binding ExcludeFromMulticoreCommand}"></MenuItem>
+                        <MenuItem 
+                            Header="Select Cable Types" 
+                            Command="{Binding SelectCableTypeCommand}"
+                            CommandParameter="{Binding PlacementTarget.SelectedItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                            ></MenuItem>
+                        <MenuItem 
+                            Header="Exclude from multicore" 
+                            Command="{Binding ExcludeFromMulticoreCommand}"
+                            CommandParameter="{Binding PlacementTarget.SelectedItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                            ></MenuItem>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>
-    </StackPanel>
+    </DockPanel>
 </Page>

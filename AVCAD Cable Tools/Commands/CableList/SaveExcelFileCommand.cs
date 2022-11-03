@@ -19,8 +19,7 @@ namespace AVCAD.Commands.CableList
 
         public override void Execute(object? parameter)
         {
-            cableListViewModel.Cables.Where(x => x.IsMulticore).ToList();
-            int x = 5;
+            Excel.ExcelMethods.SaveCableList(cableListViewModel);
         }
     }
 }

@@ -1,4 +1,5 @@
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.exe
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.dll.config
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.deps.json
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.runtimeconfig.json
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\AVCAD Cable Tools.dll
@@ -43,10 +44,14 @@ C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\bin\Debug\net6.0-windows\runtime
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.csproj.AssemblyReference.cache
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateEditCableReel.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateEditCableType.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateMulticoreProperties.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CutListExportProperties.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\SelectCableTypeForCables.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableListView.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableReelsView.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableTypesView.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.g.cs
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\SettingsView.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\UnitsView.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\App.g.cs
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools_Content.g.cs
@@ -56,10 +61,14 @@ C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD C
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\App.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateEditCableReel.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateEditCableType.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CreateMulticoreProperties.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\CutListExportProperties.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\GUI\SelectCableTypeForCables.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableListView.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableReelsView.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\CableTypesView.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\MainWindow.baml
+C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\SettingsView.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\Views\UnitsView.baml
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.g.resources
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\obj\Debug\net6.0-windows\AVCAD Cable Tools.GeneratedMSBuildEditorConfig.editorconfig

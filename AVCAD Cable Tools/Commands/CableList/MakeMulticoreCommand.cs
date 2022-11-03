@@ -1,5 +1,6 @@
 ﻿using AVCAD.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,19 +22,27 @@ namespace AVCAD.Commands.CableList
 
         public override void Execute(object? parameter)
         {
-            var selectedCables = cableListViewModel.Cables.Where(x => x.IsSelected).ToList();
-            if (selectedCables.Count > 1)
+            IEnumerable enumerable = parameter as IEnumerable;
+            if (enumerable == null)
+                throw new ArgumentException("parameter has to be an IEnumerable.", "parameter");
+
+            var selectedCables = enumerable.OfType<ViewModels.CableViewModel>().ToList();
+
+            if (selectedCables.Count > 0)
             {
-                foreach (var cable in selectedCables)
+                using (var db = new SQlite.ApplicationContext())
                 {
-                    if (cable.IsMulticore)
+                    var cmp = new GUI.CreateMulticoreProperties(selectedCables[0], db.CableTypes.ToList());
+                    if (cmp.ShowDialog() == true)
                     {
-                        cable.IsMulticore = false;
-                    }
-                    else
-                    {
-                        cable.IsMulticore = true;
-                        cable.MulticoreMembers = new ObservableCollection<ViewModels.CableViewModel>(selectedCables);
+                        foreach (var cable in selectedCables)
+                        {
+                            cable.MulticoreMembers = new ObservableCollection<ViewModels.CableViewModel>(selectedCables);
+                            cable.IsMulticore = true;
+                            cable.CableLength = cmp.Cable.CableLength;
+                            cable.ExtraLength = cmp.Cable.ExtraLength;
+                            cable.CableType = cmp.CableType?.ToString() ?? "";
+                        }
                     }
                 }
             }

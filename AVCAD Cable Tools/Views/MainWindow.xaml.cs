@@ -1,4 +1,5 @@
 ﻿using AVCAD.ViewModels;
+using AVCAD.ViewModels.Settings;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,11 @@ namespace AVCAD.Views
         private void CableReelsFrame_LoadCompleted(object sender, NavigationEventArgs e)
         {
             UpdateFrameDataContext(sender, e, new CableReelsPageViewModel());
+        }
+
+        private void SettingsFrame_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            UpdateFrameDataContext(sender, e, new SettingsViewModel());
         }
     }
 }

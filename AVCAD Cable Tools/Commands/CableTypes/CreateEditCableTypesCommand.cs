@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AVCAD.Commands.CableTypes
 {
@@ -50,6 +51,11 @@ namespace AVCAD.Commands.CableTypes
                 var ct = ctWindow.CableType;
                 using (var db = new SQlite.ApplicationContext())
                 {
+                    if (db.CableTypes.ToList().Contains(ct))
+                    {
+                        MessageBox.Show("A cable type with these properties already exists.");
+                        return;
+                    }    
                     if (create)
                         db.CableTypes.Add(ct);
                     else

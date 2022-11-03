@@ -32,5 +32,10 @@ namespace AVCAD.GUI
         {
             DialogResult = true;
         }
+
+        private void CancelBNT_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
     }
 }

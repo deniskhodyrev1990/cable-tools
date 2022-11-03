@@ -5,15 +5,169 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace AVCAD.ViewModels
 {
     public class CableListViewModel: ViewModelBase
     {
-        private readonly ObservableCollection<CableViewModel> _cables;
+        private ObservableCollection<CableViewModel> _cables;
 
-        public IEnumerable<CableViewModel> Cables => _cables;
+        public ObservableCollection<CableViewModel> Cables
+        {
+            get
+            {
+                return _cables;
+            }
+            set
+            {
+                _cables = value;
+            }
+        }
+
+
+        public bool SysnameOutVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.SysnameOutVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.SysnameOutVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged(nameof(SysnameOutVisible));
+            }
+        }
+
+        public bool ConnectorOutVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.ConnectorOutVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.ConnectorOutVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("ConnectorOutVisible");
+            }
+        }
+
+        public bool PortOutVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.PortOutVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.PortOutVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("PortOutVisible");
+            }
+        }
+
+        public bool ModelOutVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.ModelOutVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.ModelOutVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("ModelOutVisible");
+            }
+        }
+
+        public bool LocationOutVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.LocationOutVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.LocationOutVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("LocationOutVisible");
+            }
+        }
+
+
+        public bool SysnameInVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.SysnameInVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.SysnameInVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("SysnameInVisible");
+            }
+        }
+
+        public bool ConnectorInVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.ConnectorInVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.ConnectorInVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("ConnectorInVisible");
+            }
+        }
+
+        public bool PortInVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.PortInVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.PortInVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("PortInVisible");
+            }
+        }
+
+        public bool ModelInVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.ModelInVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.ModelInVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("ModelInVisible");
+            }
+        }
+
+        public bool LocationInVisible
+        {
+            get
+            {
+                return Properties.Settings.Default.LocationInVisibility;
+            }
+            set
+            {
+                Properties.Settings.Default.LocationInVisibility = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("LocationInVisible");
+            }
+        }
+
 
         private string? _fileName;
         public string? Filename
@@ -54,9 +208,10 @@ namespace AVCAD.ViewModels
             _cables.Add(new CableViewModel(cable));
         }
 
-        public void SetMulticoreFlag(Models.Cable cable)
+        public void Clear()
         {
-            //_cables.Rep(new CableViewModel(cable));
+            Cables.Clear();
         }
+
     }
 }

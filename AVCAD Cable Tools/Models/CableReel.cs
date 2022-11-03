@@ -22,12 +22,12 @@ namespace AVCAD.Models
 
         public override bool Equals(object? obj)
         {
-            return obj is CableReel cr && Name == cr.Name;
+            return obj is CableReel cr && Name == cr.Name && Length == cr.Length && CableType == cr.CableType;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name);
+            return HashCode.Combine(Name, Length, CableType);
         }
 
     }

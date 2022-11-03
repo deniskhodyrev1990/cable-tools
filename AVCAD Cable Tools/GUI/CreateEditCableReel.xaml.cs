@@ -32,7 +32,7 @@ namespace AVCAD.GUI
             
         }
 
-        public CreateEditCableReel(CableReel cableReel, ObservableCollection<CableType> cableTypes) : this(cableReel)
+        public CreateEditCableReel(CableReel cableReel, List<CableType> cableTypes) : this(cableReel)
         {
             CableTypesComboBox.ItemsSource = cableTypes;
         }
@@ -40,6 +40,11 @@ namespace AVCAD.GUI
         private void SubmitBNT_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
+        }
+
+        private void CancelBNT_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }

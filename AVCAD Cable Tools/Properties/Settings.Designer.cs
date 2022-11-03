@@ -22,5 +22,137 @@ namespace AVCAD.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PathToDatabase {
+            get {
+                return ((string)(this["PathToDatabase"]));
+            }
+            set {
+                this["PathToDatabase"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SysnameOutVisibility {
+            get {
+                return ((bool)(this["SysnameOutVisibility"]));
+            }
+            set {
+                this["SysnameOutVisibility"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ConnectorOutVisibility {
+            get {
+                return ((bool)(this["ConnectorOutVisibility"]));
+            }
+            set {
+                this["ConnectorOutVisibility"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PortOutVisibility {
+            get {
+                return ((bool)(this["PortOutVisibility"]));
+            }
+            set {
+                this["PortOutVisibility"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ModelOutVisibility {
+            get {
+                return ((bool)(this["ModelOutVisibility"]));
+            }
+            set {
+                this["ModelOutVisibility"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SysnameInVisibility {
+            get {
+                return ((bool)(this["SysnameInVisibility"]));
+            }
+            set {
+                this["SysnameInVisibility"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ConnectorInVisibility {
+            get {
+                return ((bool)(this["ConnectorInVisibility"]));
+            }
+            set {
+                this["ConnectorInVisibility"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PortInVisibility {
+            get {
+                return ((bool)(this["PortInVisibility"]));
+            }
+            set {
+                this["PortInVisibility"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ModelInVisibility {
+            get {
+                return ((bool)(this["ModelInVisibility"]));
+            }
+            set {
+                this["ModelInVisibility"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LocationOutVisibility {
+            get {
+                return ((bool)(this["LocationOutVisibility"]));
+            }
+            set {
+                this["LocationOutVisibility"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LocationInVisibility {
+            get {
+                return ((bool)(this["LocationInVisibility"]));
+            }
+            set {
+                this["LocationInVisibility"] = value;
+            }
+        }
     }
 }

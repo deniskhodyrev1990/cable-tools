@@ -1,4 +1,5 @@
-﻿using AVCAD.ViewModels;
+﻿using AVCAD.Models;
+using AVCAD.ViewModels;
 using DocumentFormat.OpenXml.Presentation;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,20 @@ namespace AVCAD.Commands.CableList
 
         public override void Execute(object? parameter)
         {
-            MessageBox.Show("Create cut list");
+            using (var db = new SQlite.ApplicationContext())
+            {
+                var cableReelsPageViewModel = new ViewModels.CableReelsPageViewModel();
+                cableReelsPageViewModel.UpdateData();
+                var clepWindow = new GUI.CutListExportProperties(cableReelsPageViewModel);
+                if (clepWindow.ShowDialog() == true)
+                {
+                    var selectedReels = cableReelsPageViewModel.CableReels.Where(i => i.IsSelected).ToList();
+                    Excel.ExcelMethods.CreateCutList(cableListViewModel, selectedReels);
+                }
+
+
+            }
+            
         }
     }
 }

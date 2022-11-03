@@ -1,5 +1,6 @@
 ﻿using AVCAD.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -20,7 +21,10 @@ namespace AVCAD.Commands.CableList
 
         public override void Execute(object? parameter)
         {
-            var selectedCables = cableListViewModel.Cables.Where(x => x.IsSelected);
+            IEnumerable enumerable = parameter as IEnumerable;
+            if (enumerable == null)
+                throw new ArgumentException("parameter has to be an IEnumerable.", "parameter");
+            var selectedCables = enumerable.OfType<ViewModels.CableViewModel>().ToList();
 
             foreach (var selectedCable in selectedCables)
             {

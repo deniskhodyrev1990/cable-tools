@@ -5,26 +5,26 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AVCAD.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="CableReelsView">
 
-    <StackPanel>
+    <DockPanel>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*"></RowDefinition>
                 <RowDefinition Height="0.9*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
+            <StackPanel 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal" 
+                Grid.Row="0" 
+>
                 <Button 
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
                     Content="Load SQLite database"
                     Command="{Binding LoadSQLiteDatabaseCableReelsCommand}"
                     Margin="10">
                 </Button>
                 <Button 
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
                     Content="Create cable reel"
                     Command="{Binding AddCableReelCommand}"
                     Margin="10">
@@ -32,11 +32,11 @@
             </StackPanel>
             <StackPanel Grid.Row="1">
                 <DataGrid 
-                x:Name="CableTypesDataGrid" 
-                MinHeight="500" MaxHeight="550"
-                MinWidth="500"
+                    x:Name="CableTypesDataGrid" 
+                    MinWidth="500"
                     AutoGenerateColumns="False"
-                    ItemsSource="{Binding CableReels}">
+                    ItemsSource="{Binding CableReels}"
+                    Margin="10">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridRow">
                             <Setter Property="IsSelected"
@@ -59,5 +59,5 @@
             </StackPanel>
         </Grid>
 
-    </StackPanel>
+    </DockPanel>
 </Page>

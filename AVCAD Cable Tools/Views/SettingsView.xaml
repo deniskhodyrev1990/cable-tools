@@ -1,0 +1,46 @@
+﻿<Page x:Class="AVCAD.Views.SettingsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AVCAD.Views"
+      mc:Ignorable="d" 
+      Title="SettingsView">
+    <Grid>
+        <StackPanel Margin="10">
+            <GroupBox Header="Column Visibility"
+                      >
+                
+                <StackPanel >
+                    <CheckBox Content="Sysname Out" IsChecked="{Binding SysnameOutVisible, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="Connector Out" IsChecked="{Binding ConnectorOutVisible, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="Port Out" IsChecked="{Binding PortOutVisible, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="Model Out" IsChecked="{Binding ModelOutVisible, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="Location Out" IsChecked="{Binding LocationOutVisible, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="Sysname In" IsChecked="{Binding SysnameInVisible, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="Connector In" IsChecked="{Binding ConnectorInVisible, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="Port In" IsChecked="{Binding PortInVisible, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="Model In" IsChecked="{Binding ModelInVisible, Mode=TwoWay}"></CheckBox>
+                    <CheckBox Content="Location In" IsChecked="{Binding LocationInVisible, Mode=TwoWay}"></CheckBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Database Location">
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Content="Change Database Folder" 
+                        Command="{Binding ChangeDatabaseLocationCommand}" Margin="0,0,10,0"
+                        />
+                    <Border BorderThickness="1" BorderBrush="Black">
+                        <TextBlock 
+                            Margin="0,0,10,0"
+                            Text="{Binding PathToDatabase}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</Page>

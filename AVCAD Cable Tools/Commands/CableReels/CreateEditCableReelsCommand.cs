@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AVCAD.Commands.CableReels
 {
@@ -35,7 +36,7 @@ namespace AVCAD.Commands.CableReels
         {
             using (var db = new SQlite.ApplicationContext())
             {
-                cableReelsPageViewModel.GetCableTypes(db);
+                
                 if (!create)
                 {
                     var selectedCableReels = cableReelsPageViewModel.CableReels.Where(i => i.IsSelected);
@@ -46,11 +47,15 @@ namespace AVCAD.Commands.CableReels
                         
                     }
                 }
-                var ctWindow = new GUI.CreateEditCableReel(cableReel, cableReelsPageViewModel.CableTypes);
+                var ctWindow = new GUI.CreateEditCableReel(cableReel, db.CableTypes.ToList());
                 if (ctWindow.ShowDialog() == true)
                 {
                     var ct = ctWindow.CableReel;
-
+                    if (db.CableReels.ToList().Contains(ct))
+                    {
+                        MessageBox.Show("A cable reel with these properties already exists");
+                        return;
+                    }
                     if (create)
                         db.CableReels.Add(ct);
                     else

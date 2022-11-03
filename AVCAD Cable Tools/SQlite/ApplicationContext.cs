@@ -18,7 +18,7 @@ namespace AVCAD.SQlite
         //public DbSet<Models.Unit> Unit { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=cabletools.db");
+            optionsBuilder.UseSqlite($"Data Source={(Properties.Settings.Default.PathToDatabase == String.Empty? string.Format("cabletools.db") : Properties.Settings.Default.PathToDatabase)}");
         }
 
     }

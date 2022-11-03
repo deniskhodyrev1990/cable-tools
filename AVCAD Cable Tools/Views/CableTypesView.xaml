@@ -6,23 +6,23 @@
       xmlns:local="clr-namespace:AVCAD.Views"
       mc:Ignorable="d" 
       Title="CableTypesView">
-    <StackPanel>
+    <DockPanel>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*"></RowDefinition>
                 <RowDefinition Height="0.9*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
+            <StackPanel 
+                Orientation="Horizontal" 
+                Grid.Row="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left">
                 <Button 
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
                     Content="Load SQLite database"
                     Command="{Binding LoadSQLiteDatabaseCableTypeCommand}"
                     Margin="10">
                     </Button>
                 <Button 
-                    Background="#2C91BD"
-                    BorderBrush="#F9C757"
                     Content="Create cable type"
                     Command="{Binding AddCableTypeCommand}"
                     Margin="10">
@@ -30,11 +30,11 @@
             </StackPanel>
             <StackPanel Grid.Row="1">
                 <DataGrid 
-                x:Name="CableTypesDataGrid" 
-                MinHeight="500" MaxHeight="550"
-                MinWidth="500"
+                    x:Name="CableTypesDataGrid" 
+                    MinWidth="500"
                     AutoGenerateColumns="False"
-                    ItemsSource="{Binding CableTypes}">
+                    ItemsSource="{Binding CableTypes}"
+                    Margin="10">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridRow">
                             <Setter Property="IsSelected"
@@ -57,5 +57,5 @@
             </StackPanel>
         </Grid>
 
-    </StackPanel>
+    </DockPanel>
 </Page>
