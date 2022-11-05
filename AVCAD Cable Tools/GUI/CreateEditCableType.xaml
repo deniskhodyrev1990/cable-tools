@@ -17,12 +17,12 @@
                 Margin="10,2,10,10"
                 Text="{Binding Type}"
                 ></TextBox>
-            <Label Margin="10,10,10,2">AWG</Label>
+            <!--<Label Margin="10,10,10,2">AWG</Label>
             <TextBox 
                 x:Name="AwgTextBox"
                 Margin="10,2,10,10"
                 Text="{Binding AWG}"
-                ></TextBox>
+                ></TextBox>-->
             <Label Margin="10,10,10,2">Max Length</Label>
             <TextBox 
                 x:Name="MaxLengthTextBox" 

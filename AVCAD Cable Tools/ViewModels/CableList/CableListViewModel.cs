@@ -12,21 +12,7 @@ namespace AVCAD.ViewModels
 {
     public class CableListViewModel: ViewModelBase
     {
-        private ObservableCollection<CableViewModel> _cables;
-
-        public ObservableCollection<CableViewModel> Cables
-        {
-            get
-            {
-                return _cables;
-            }
-            set
-            {
-                _cables = value;
-            }
-        }
-
-
+        public ObservableCollection<CableViewModel> Cables { get; set; }
         public bool SysnameOutVisible
         {
             get
@@ -40,7 +26,6 @@ namespace AVCAD.ViewModels
                 OnPropertyChanged(nameof(SysnameOutVisible));
             }
         }
-
         public bool ConnectorOutVisible
         {
             get
@@ -54,7 +39,6 @@ namespace AVCAD.ViewModels
                 OnPropertyChanged("ConnectorOutVisible");
             }
         }
-
         public bool PortOutVisible
         {
             get
@@ -68,7 +52,6 @@ namespace AVCAD.ViewModels
                 OnPropertyChanged("PortOutVisible");
             }
         }
-
         public bool ModelOutVisible
         {
             get
@@ -82,7 +65,6 @@ namespace AVCAD.ViewModels
                 OnPropertyChanged("ModelOutVisible");
             }
         }
-
         public bool LocationOutVisible
         {
             get
@@ -96,8 +78,6 @@ namespace AVCAD.ViewModels
                 OnPropertyChanged("LocationOutVisible");
             }
         }
-
-
         public bool SysnameInVisible
         {
             get
@@ -111,7 +91,6 @@ namespace AVCAD.ViewModels
                 OnPropertyChanged("SysnameInVisible");
             }
         }
-
         public bool ConnectorInVisible
         {
             get
@@ -125,7 +104,6 @@ namespace AVCAD.ViewModels
                 OnPropertyChanged("ConnectorInVisible");
             }
         }
-
         public bool PortInVisible
         {
             get
@@ -139,7 +117,6 @@ namespace AVCAD.ViewModels
                 OnPropertyChanged("PortInVisible");
             }
         }
-
         public bool ModelInVisible
         {
             get
@@ -153,7 +130,6 @@ namespace AVCAD.ViewModels
                 OnPropertyChanged("ModelInVisible");
             }
         }
-
         public bool LocationInVisible
         {
             get
@@ -168,9 +144,8 @@ namespace AVCAD.ViewModels
             }
         }
 
-
-        private string? _fileName;
-        public string? Filename
+        private string _fileName;
+        public string Filename
         {
             get
             {
@@ -195,17 +170,17 @@ namespace AVCAD.ViewModels
         {
             LoadExcelFileCommand = new Commands.CableList.LoadExcelFileCommand(this);
             SaveExcelFileCommand = new Commands.CableList.SaveExcelFileCommand(this);
-            MakeMulticoreCommand = new Commands.CableList.MakeMulticoreCommand(this);
+            MakeMulticoreCommand = new Commands.CableList.MakeMulticoreCommand();
             CreateCutListCommand = new Commands.CableList.CreateCutListCommand(this);
-            SelectCableTypeCommand = new Commands.CableList.SelectCableTypeCommand(this);
+            SelectCableTypeCommand = new Commands.CableList.SelectCableTypeCommand();
             ExcludeFromMulticoreCommand = new Commands.CableList.ExcludeFromMulticoreCommand(this);
 
-            _cables = new ObservableCollection<CableViewModel>();
+            Cables = new ObservableCollection<CableViewModel>();
         }
 
         public void AddCable(Models.Cable cable)
         {
-            _cables.Add(new CableViewModel(cable));
+            Cables.Add(new CableViewModel(cable));
         }
 
         public void Clear()

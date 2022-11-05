@@ -20,6 +20,14 @@ namespace AVCAD.Models
 
         }
 
+        public CableReel(CableReel cr)
+        {
+            this.Id = cr.Id;
+            this.Name = cr.Name;
+            this.Length = cr.Length;
+            this.CableType = cr.CableType;
+        }
+
         public override bool Equals(object? obj)
         {
             return obj is CableReel cr && Name == cr.Name && Length == cr.Length && CableType == cr.CableType;
@@ -28,6 +36,11 @@ namespace AVCAD.Models
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, Length, CableType);
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} {Length}";
         }
 
     }

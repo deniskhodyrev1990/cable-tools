@@ -1,4 +1,6 @@
-﻿using AVCAD.SQlite;
+﻿using AVCAD.Models;
+using AVCAD.SQlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System;
 using System.Collections.Generic;
@@ -10,15 +12,19 @@ using System.Windows.Input;
 
 namespace AVCAD.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the cable type page.
+    /// </summary>
     public class CableTypesPageViewModel : ViewModelBase
     {
-        ApplicationContext db = new ApplicationContext();
         public ObservableCollection<ViewModels.CableTypesViewModel> CableTypes { get; set; }
-
+        //Command to load data from the database
         public ICommand LoadSQLiteDatabaseCableTypeCommand { get; }
+        //Command to add a cable type
         public ICommand AddCableTypeCommand { get; }
-    
+        //Command to edit a cable type
         public ICommand EditCableTypeCommand { get; }
+        //Command to delete a cable type
         public ICommand DeleteCableTypeCommand { get; }
 
         public CableTypesPageViewModel()
@@ -48,6 +54,7 @@ namespace AVCAD.ViewModels
         {
             using (var db = new SQlite.ApplicationContext())
             {
+                //Check that the database is created.
                 db.Database.EnsureCreated();
                 this.CableTypes.Clear();
                 foreach (var cableType in db.CableTypes)

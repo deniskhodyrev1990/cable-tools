@@ -55,6 +55,7 @@
                     Command="{Binding CreateCutListCommand}"/>
                 <TextBlock 
                     VerticalAlignment="Center"
+                    FontSize="16"
                     Text="{Binding Filename}"/>
             </StackPanel>
             <DataGrid 

@@ -1,7 +1,9 @@
 ﻿using AVCAD.Models;
 using AVCAD.ViewModels;
 using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Office2013.PowerPoint.Roaming;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Vml.Office;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.VisualBasic;
 using Microsoft.Win32;
@@ -44,9 +46,16 @@ namespace AVCAD.Excel
                 SLWorksheetStatistics stats = sld.GetWorksheetStatistics();
                 //Check the first row to get headers.
                 var headers = new Dictionary<string, int>();
+                //I assume that headers are on the first row.
                 for (int i = 1; i <= stats.EndColumnIndex; i++)
                 {
-                    headers.Add(sld.GetCellValueAsString(1, i), i);
+                    //Quick check in case of existing formatting or empty values, or duplicates.
+                    string cellValue = sld.GetCellValueAsString(1, i);
+                    if (cellValue == String.Empty)
+                        continue;
+                    if (headers.Keys.Contains(cellValue))
+                        continue;
+                    headers.Add(cellValue, i);
                 }
                 //If headers does not contains one necessary fiels - exception.
                 if (!headers.Keys.Contains("CableNumber"))
@@ -54,26 +63,26 @@ namespace AVCAD.Excel
                     throw new Exceptions.ExcelHeadersException("You do not have the CableNumber header in your table. It is necessary to have it.");
                 }
 
-                //Checl all the other rows to get values.
+                //Check all the other rows to get values. The data starts from the second row.
                 for (int j = 2; j < stats.EndRowIndex + 1; j++)
                 {
                     var cable = new Models.Cable
                     {
                         CableNumber = sld.GetCellValueAsString(j, headers["CableNumber"]),
-                        SysnameOut = sld.GetCellValueAsString(j, headers["SysnameOut"]),
-                        ConnectorOut = sld.GetCellValueAsString(j, headers["ConnectorOut"]),
-                        DescriptionOut = sld.GetCellValueAsString(j, headers["DescriptionOut"]),
-                        LocationOut = sld.GetCellValueAsString(j, headers["LocationOut"]),
-                        ModelOut = sld.GetCellValueAsString(j, headers["ModelOut"]),
-                        SysnameIn = sld.GetCellValueAsString(j, headers["SysnameIn"]),
-                        ConnectorIn = sld.GetCellValueAsString(j, headers["ConnectorIn"]),
-                        DescriptionIn = sld.GetCellValueAsString(j, headers["DescriptionIn"]),
-                        LocationIn = sld.GetCellValueAsString(j, headers["LocationIn"]),
-                        ModelIn = sld.GetCellValueAsString(j, headers["ModelIn"]),
-                        CableType = new Models.CableType(sld.GetCellValueAsString(j, headers["Cable Type"])),
-                        CableLength = sld.GetCellValueAsDouble(j, headers["Cable Length"]),
-                        ExtraLength = headers.ContainsKey("Extra(%)") ? sld.GetCellValueAsDouble(j,headers["Extra(%)"]) : 0.0,
-                        MulticoreMembers = headers.ContainsKey("Multicore Members") ? sld.GetCellValueAsString(j, headers["Multicore Members"]) : String.Empty,
+                        SysnameOut = GetCellData(headers, sld, "SysnameOut",j, String.Empty),
+                        ConnectorOut = GetCellData(headers, sld, "ConnectorOut", j, String.Empty),
+                        DescriptionOut = GetCellData(headers, sld, "DescriptionOut", j, String.Empty),
+                        LocationOut = GetCellData(headers, sld, "LocationOut", j, String.Empty),
+                        ModelOut = GetCellData(headers, sld, "ModelOut", j, String.Empty),
+                        SysnameIn = GetCellData(headers, sld, "SysnameIn", j, String.Empty),
+                        ConnectorIn = GetCellData(headers, sld, "ConnectorIn", j, String.Empty),
+                        DescriptionIn = GetCellData(headers, sld, "DescriptionIn", j, String.Empty),
+                        LocationIn = GetCellData(headers, sld, "LocationIn", j, String.Empty),
+                        ModelIn = GetCellData(headers, sld, "ModelIn", j, String.Empty),
+                        CableType = new Models.CableType(GetCellData(headers, sld, "Cable Type", j, String.Empty)),
+                        CableLength = GetCellData(headers, sld, "Cable Length", j, 0.0),
+                        ExtraLength = GetCellData(headers, sld, "Extra(%)", j, 0.0),
+                        MulticoreMembers = GetCellData(headers, sld, "Multicore Members", j, String.Empty)
                     };
                     cables.Add(cable);
                 }
@@ -81,17 +90,39 @@ namespace AVCAD.Excel
             return cables;
         }
 
+        /// <summary>
+        /// Generic method to check the existence of header, get value with the needed type and return default value if something is wrong.
+        /// </summary>
+        /// <typeparam name="T">Generic Type</typeparam>
+        /// <param name="headers">Headers from the Excel file</param>
+        /// <param name="sld">Spreadsheet Light document instance</param>
+        /// <param name="header">Needed header</param>
+        /// <param name="j">Row number</param>
+        /// <param name="defaultValue">Default value for the type of data</param>
+        /// <returns>Returns a value from the cell or default value.</returns>
+        public static T GetCellData<T>(in Dictionary<string,int> headers, in SLDocument sld, in string header, in int j, T defaultValue)
+        {
+            if (headers.ContainsKey(header))
+            {
+                if (defaultValue.GetType() == typeof(double))
+                {
+                    return (T)Convert.ChangeType(sld.GetCellValueAsDouble(j, headers[header]), typeof(T));
+                }
+                if (defaultValue.GetType() == typeof(string))
+                {
+                    return (T)Convert.ChangeType(sld.GetCellValueAsString(j, headers[header]), typeof(T));
+                }
+            }
+            return defaultValue;
+        }
 
         /// <summary>
-        /// This method creates an excel file with CutList of cables
+        /// This method creates an excel file with a cutList of cables
         /// </summary>
         /// <param name="cableListViewModel">CableViewModels to get all the information that was in the view</param>
         /// <param name="cableReels">Selected cable reels to use.</param>
         public static void CreateCutList(CableListViewModel cableListViewModel, List<ViewModels.CableReelViewModel> cableReels)
         {
-            List<String> _exportHeaders = new List<string> { "Multicore", "Cables", "Length", "Extra (%)", "Final Length", "Cable Type" };
-
-
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             // set a default file name
             saveFileDialog.FileName = $"CutList from '{System.IO.Path.GetFileNameWithoutExtension(cableListViewModel.Filename)}'.xlsx";
@@ -100,13 +131,15 @@ namespace AVCAD.Excel
 
             if (saveFileDialog.ShowDialog() == true)
             {
+                //Initial list of headers
+                List<String> exportHeaders = new List<string> { "Multicore", "Cables", "Length", "Extra (%)", "Final Length", "Cable Type" };
                 using (SLDocument sl = new SLDocument())
                 {
                     using (var db = new SQlite.ApplicationContext())
                     {
+                        //Get cable types from the SQLite database.
                         var cableTypes = db.CableTypes.ToList();
-
-
+                        //Styles
                         //Header Style
                         SLStyle headerStyle = Excel.ExcelStyles.GetHeaderStyle(sl);
                         //Common cell style
@@ -122,55 +155,21 @@ namespace AVCAD.Excel
                             .ThenBy(i => i.CableNumber);
 
 
-                        //Получаем катушки с остатками.
+                        //Calculate the reels with cable leftovers.
                         var reels = CalculateReels(cableListViewModel, cableReels, cableTypes);
 
-                        //cableReelsStock.Last().Number = cableReelsStock.Where(i => i.Name == cableReelsStock.Last().Name).Count();
-
-
-                        foreach (var reel in reels)
-                        {
-                            foreach (var cableReel in cableReels)
-                            {
-                                if (reel.CableType.ToString() == cableReel.CableType)
-                                {
-                                    if (cableReel.Length < reel.Length)
-                                    {
-                                        if (reel.LeftOver - (reel.Length - cableReel.Length) > 0)
-                                        {
-                                            reel.LeftOver -= (double)reel.Length - (double)cableReel.Length;
-                                            reel.Length = (double)cableReel.Length;
-                                            reel.Name = cableReel.Name;
-                                            reel.Number = reels.Where(i => i.Name == reel.Name).Count();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        //Нумерация катушек.
-                        var list = new List<String>();
-                        foreach (var reel in reels)
-                        {
-                            list.Add(reel.Name);
-                            reel.Number = list.Where(x => x == reel.Name).Count();
-                        }
-
-
-
-                        // Сортировка катушек.
-                        reels = reels.OrderBy(x => x.Name).ToList();
-
+                        //Here we get cables before and after the calculation to check whether some cables were unused or not;
                         var cablesBefore = cableListViewModel.Cables.Select(i => i.CableNumber).ToList();
                         var cablesAfter = reels.SelectMany(i => i.Cables.Select(x=>x.CableNumber)).ToList();
 
                         var difference = cablesBefore.Except(cablesAfter).ToList();
 
-                        //Добавляем в заголовки.
-                        _exportHeaders.AddRange(reels.Select(i => $"{i.Name} #{i.Number}\nLength: {i.Length}")) ;
+                        //Add cable reels in usage headers to the exportHeaders list.
+                        exportHeaders.AddRange(reels.Select(i => $"{i.Name} #{i.Number}\nLength: {i.Length}")) ;
 
+                        //Add headers to the document;
                         int columnNumber = 1;
-                        foreach (var header in _exportHeaders)
+                        foreach (var header in exportHeaders)
                         {
                             sl.SetCellValue(1, columnNumber, header);
                             sl.SetCellStyle(1, columnNumber, headerStyle);
@@ -179,96 +178,82 @@ namespace AVCAD.Excel
 
 
                         int rowNumber = 2;
-                        var cablesUsed = new List<String>();
+                        var cablesUsed = new List<string>();
                         foreach (var cable in sortedCables)
                         {
-                            
+                            //Getting the final length
+                            var cableFinalLength = cable.ExtraLength / 100 * cable.CableLength + cable.CableLength;
+
+                            //Multicore columns. If it is not empty - cable is the multicore. Several next rows will be empty.
                             sl.SetCellValue(rowNumber, 1, string.Join(",", cable.MulticoreMembers?.Select(i => i.CableNumber) ?? new List<string>()));
-                            sl.SetCellStyle(rowNumber, 1, commonStyle);
-
+                            //Length column
                             sl.SetCellValue(rowNumber, 3, cable.CableLength);
-                            sl.SetCellStyle(rowNumber, 3, commonStyle);
-
+                            //Extra Length column
                             sl.SetCellValue(rowNumber, 4, cable.ExtraLength);
-                            sl.SetCellStyle(rowNumber, 4, commonStyle);
-
-                            sl.SetCellValue(rowNumber, 5, (cable.ExtraLength / 100) * cable.CableLength + cable.CableLength);
-                            sl.SetCellStyle(rowNumber, 5, commonStyle);
-
+                            //Final length column
+                            sl.SetCellValue(rowNumber, 5, cableFinalLength);
+                            //CableType column
                             sl.SetCellValue(rowNumber, 6, cable.CableType);
-                            sl.SetCellStyle(rowNumber, 6, commonStyle);
 
                             columnNumber = 6;
 
-                            if (cablesUsed.Contains(cable.CableNumber))
-                            {
-                                sl.SetCellStyle(rowNumber, 1, commonStyle);
-                                sl.SetCellStyle(rowNumber, 2, commonStyle);
-                                sl.SetCellStyle(rowNumber, 3, commonStyle);
-                                sl.SetCellStyle(rowNumber, 4, commonStyle);
-                                sl.SetCellStyle(rowNumber, 5, commonStyle);
-                                sl.SetCellStyle(rowNumber, 6, commonStyle);
-                                continue;
-                            }
+                            //Set the style for these cells;
+                            for (int i = 0; i <= columnNumber; i++)
+                                sl.SetCellStyle(rowNumber, i, commonStyle);
 
+                            //if cableUsed list contains this cable number - just set a style and continue;
+                            if (cablesUsed.Contains(cable.CableNumber))
+                                continue;
+
+                            //Now we have to set length of cables in cells. If the length is bigger than the cable type maximum - we will set warning style;
                             foreach (var reel in reels)
-                            {
+                            { 
+                                //Set normal style in any case. We will change it later if needed.
+                                sl.SetCellStyle(rowNumber, columnNumber + 1, commonStyle);    
+                                //Check cable is in multicore.
                                 var multicoreMatch = reel.Cables.Any(x => cable.MulticoreMembers?.Any(y => y == x) ?? false);
                                 if (reel.Cables.Contains(cable) || multicoreMatch)
                                 {
+                                    //Get max cable length that is supported;
                                     var maxCableTypeLength = cableTypes.Where(i => i.Type == cable.CableType).FirstOrDefault(new CableType()).MaxLength;
-                                    sl.SetCellValue(rowNumber, columnNumber + 1, (cable.ExtraLength / 100) * cable.CableLength + cable.CableLength);
-                                    if (maxCableTypeLength < (cable.ExtraLength / 100) * cable.CableLength + cable.CableLength)
-                                    {
+                                    sl.SetCellValue(rowNumber, columnNumber + 1, cableFinalLength);
+                                    if (maxCableTypeLength < cableFinalLength)
                                         sl.SetCellStyle(rowNumber, columnNumber + 1, warningStyle);
-                                    }
-                                    else
-                                    {
-                                        sl.SetCellStyle(rowNumber, columnNumber + 1, commonStyle);
-                                    }
-
-                                    
                                 }
-                                sl.SetCellStyle(rowNumber, columnNumber + 1, commonStyle);
                                 columnNumber++;
                             }
 
-                            if (cable.IsMulticore)
-                            {
-                                cablesUsed.AddRange(cable.MulticoreMembers.Select(i => i.CableNumber).ToList());
-                            }
-                            else
-                            {
-                                cablesUsed.Add(cable.CableNumber);
-                            }
-
-
+                            //Multicore column. It is here because we will set several rows empty except the cablenumber column.
                             if (cable.IsMulticore)
                             {
                                 foreach (var multicoreMember in cable.MulticoreMembers)
                                 {
                                     sl.SetCellValue(rowNumber, 2, multicoreMember.CableNumber);
                                     sl.SetCellStyle(rowNumber, 2, commonStyle);
+                                    //If we could not cut this cable because of the length - just set the error style
                                     if (difference.Contains(cable.CableNumber))
                                         sl.SetCellStyle(rowNumber, 2, errorStyle);
-                                    
+                                    // If not the last - just iterate rows.
                                     if (multicoreMember != cable.MulticoreMembers.Last())
                                         rowNumber++;
                                 }
+                                //Add all the multicore members to the list;
+                                cablesUsed.AddRange(cable.MulticoreMembers.Select(i => i.CableNumber).ToList());
                             }
                             else
                             {
                                 sl.SetCellValue(rowNumber, 2, cable.CableNumber);
                                 sl.SetCellStyle(rowNumber, 2, commonStyle);
                                 if (difference.Contains(cable.CableNumber))
+                                    //If we could not cut this cable because of the length - just set the error style
                                     sl.SetCellStyle(rowNumber, 2, errorStyle);
-                                
+                                //Add this cable to the list;
+                                cablesUsed.Add(cable.CableNumber);
                             }
                             rowNumber++;
                         }
 
-
-                        //Остатки по катушкам.
+                        //Get back and set leftovers for all the cable reels
                         columnNumber = 6;
                         foreach (var reel in reels)
                         {
@@ -277,15 +262,16 @@ namespace AVCAD.Excel
                             columnNumber++;
                         }
 
-
-
-                        //Установка количества катушек.
+                        //Create a small table with the quantity of used reels
+                        //Get back to the first column and make one empty row.
                         rowNumber++;
                         columnNumber = 1;
-                        var reelsQuantity = reels.GroupBy(i => i.Name)
+                        //Calculate the equal cable reels
+                        var reelsQuantity = reels.GroupBy(i => $"{i.Name} {i.Length}")
                             .Select(g => new { Value = g.Key, Count = g.Count() })
                             .OrderBy(x => x.Value);
 
+                        //Set the cell values and style;
                         foreach (var reel in reelsQuantity)
                         {
                             sl.SetCellValue(rowNumber, columnNumber, reel.Value);
@@ -296,10 +282,9 @@ namespace AVCAD.Excel
                             rowNumber++;
                         }
 
-
-
+                        //Finishing the document with filters, etc;
                         sl.Filter("A1", $"F{sortedCables.Count()}");
-                        sl.AutoFitColumn(1, _exportHeaders.Count);
+                        sl.AutoFitColumn(1, exportHeaders.Count);
                         sl.AutoFitRow(1);
                         sl.SaveAs(saveFileDialog.FileName);
                         MessageBox.Show("Success");
@@ -308,64 +293,109 @@ namespace AVCAD.Excel
             }
         }
 
-
-        private static List<CablesInReels> CalculateReels(CableListViewModel cableListViewModel, List<ViewModels.CableReelViewModel> cableReels, List<CableType> cableTypes)
+        /// <summary>
+        /// This method loops through all the cables and calculate the leftover and whether this cables fits here.
+        /// </summary>
+        /// <param name="cableListViewModel">CableListViewModel with all the cables</param>
+        /// <param name="cableReels">CableReelViewModel with all the reels </param>
+        /// <param name="cableTypes">CableTypes from the database</param>
+        /// <returns></returns>
+        private static List<CableReelsInUsage> CalculateReels(in CableListViewModel cableListViewModel,in List<ViewModels.CableReelViewModel> cableReels, in List<CableType> cableTypes)
         {
-            var cableReelsStock = new List<CablesInReels>();
-            var cablesUsed = new List<String>();
+            //Define variables for this method
+            var cableReelsInUsage = new List<CableReelsInUsage>();
+            var cablesUsed = new List<string>();
 
 
             foreach (var cable in cableListViewModel.Cables)
             {
+                //Check if cable already was cutted 
                 if (cablesUsed.Contains(cable.CableNumber))
                     continue;
-                var freeCableReels = cableReelsStock.Where(i => i.CableType.Type == cable.CableType &&
-                    i.LeftOver >= (cable.ExtraLength / 100) * cable.CableLength + cable.CableLength);
-                if (freeCableReels.Count() > 0)
+                //Calculate the full cable length (Length + Extra);
+                var cableFullLength = cable.CableLength + cable.ExtraLength / 100 * cable.CableLength;
+                //With every iteration we calculate our new enumerable with cable reels that we can use to fit cables.
+                var freeCableReels = cableReelsInUsage.Where(i => i.CableType.Type == cable.CableType &&
+                                                            i.LeftOver >= cableFullLength);
+                //If there is a cable reel that already is in use - add a cable to the collection and calculate a new leftover of cable.
+                if (freeCableReels.Any())
                 {
-                    freeCableReels.ElementAt(0).Cables.Add(cable);
-                    freeCableReels.ElementAt(0).LeftOver -= (cable.ExtraLength / 100) * cable.CableLength + cable.CableLength;
+                    freeCableReels.First().Cables.Add(cable);
+                    freeCableReels.First().LeftOver -= cableFullLength;
                 }
+                // If not - we will create a reel with a maximum length. We will change the reel later if there is a smaller one with the needed length.
                 else
                 {
-                    try
+                    //Get the cable type with that type. If null - probably does not exist. Continue;
+                    var cableType = cableTypes.Where(i => i.Type == cable.CableType).MaxBy(i => i.MaxLength);
+                    if (cableType == null)
+                        continue;
+                    //Check the needed Cable Reel with the max length
+                    var neededCableReel = cableReels.Where(i => i.CableType == cable.CableType).MaxBy(i => i.Length);
+                    //if null - continue. Probably it does not exist
+                    if (neededCableReel == null)
+                        continue;
+                    //If even max length of existing reels is not enough - continue;
+                    if (neededCableReel.Length < cableFullLength)
+                        continue;
+                    //Finally create a cable reel.
+                    cableReelsInUsage.Add(new CableReelsInUsage()
                     {
-                        
-                        cableReelsStock.Add(new CablesInReels()
-                        {
-                            CableType = cableTypes.Where(i => i.Type == cable.CableType).MaxBy(i => i.MaxLength),
-                            Length = (double)cableReels.Where(i => i.CableType == cable.CableType).MaxBy(i => i.Length)?.Length,
-                            LeftOver = (double)cableReels.Where(i => i.CableType == cable.CableType).MaxBy(i => i.Length).Length,
-                            Name = cableReels.Where(i => i.CableType == cable.CableType).MaxBy(i => i.Name).Name,
-                            Cables = new List<CableViewModel>()
-                        });
-                        cableReelsStock.Last().Number = cableReelsStock.Where(i => i.Name == cableReelsStock.Last().Name).Count();
-                        freeCableReels = cableReelsStock.Where(i => i.CableType.Type == cable.CableType &&
-                        i.LeftOver >= (cable.ExtraLength / 100) * cable.CableLength + cable.CableLength);
-                        
-                        freeCableReels.ElementAt(0).Cables.Add(cable);
-                        freeCableReels.ElementAt(0).LeftOver -= (cable.ExtraLength / 100) * cable.CableLength + cable.CableLength;
-                    }
-                    catch (System.NullReferenceException) { continue; }
-                    catch (System.ArgumentOutOfRangeException) { continue; }
-                    catch (System.InvalidOperationException) { continue; }
-
+                        CableType = cableType,
+                        Length = neededCableReel.Length,
+                        LeftOver = neededCableReel.Length,
+                        Name = neededCableReel.Name
+                    });
+                    //Add some information to the just create cable reel
+                    cableReelsInUsage.Last().Cables.Add(cable);
+                    cableReelsInUsage.Last().LeftOver -= cableFullLength;
                 }
 
-
+                //If cable is multicore - we need to add information that all the multicore members were added to the cablesUsed list.
                 if (cable.IsMulticore)
                 {
-                    cablesUsed.AddRange(cable.MulticoreMembers.Select(i => i.CableNumber).ToList());
+                    cablesUsed.AddRange(cable.MulticoreMembers.Select(i => i.CableNumber));
                 }
+                //If not - just add a cable number
                 else
                 {
                     cablesUsed.Add(cable.CableNumber);
                 }
-
             }
-            return cableReelsStock;
+
+            //Now we need to replace the cable reels with the accepted reels but lesser size.
+            foreach (var reel in cableReelsInUsage)
+            {
+                var acceptedReels = cableReels.Where(i => i.CableType == reel.CableType.ToString()
+                                                && i.Length < reel.Length
+                                                && reel.LeftOver - (reel.Length - i.Length) > 0);
+                //Just for case when cable is longer than any reels.
+                if (acceptedReels.Any())
+                {
+                    var cableReel = acceptedReels.OrderBy(i => i.Length).First();
+                    if (cableReel == null)
+                        continue;
+                    //Method to replace cable reel
+                    reel.ReplaceCableReel(cableReel);
+                } 
+            }
+
+            //Set the number of a reel in usage. Quick workaround that works.
+            //Add the name to string a calculate iterationally.
+            var list = new List<string>();
+            foreach (var reel in cableReelsInUsage)
+            {
+                list.Add(reel.ToString());
+                reel.Number = list.Where(x => x == reel.ToString()).Count();
+            }
+            //Return sorted reels.
+            return cableReelsInUsage.OrderBy(x => x.Name).ToList();
         }
 
+        /// <summary>
+        /// Method to save the existing table to excel to continue your work next time.
+        /// </summary>
+        /// <param name="cableListViewModel">Current cablelistviewmodel</param>
         internal static void SaveCableList(CableListViewModel cableListViewModel)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -376,18 +406,20 @@ namespace AVCAD.Excel
 
             if (saveFileDialog.ShowDialog() == true)
             {
+                //Create a new Spreadsheet Light document
                 using (SLDocument sl = new SLDocument())
                 {
                     var headerStyle = Excel.ExcelStyles.GetHeaderStyle(sl);
                     var commonStyle = Excel.ExcelStyles.GetCommonStyle(sl);
                     int columnNumber = 1;
+                    //Create headers
                     foreach (var header in _importHeaders)
                     {
                         sl.SetCellValue(1, columnNumber, header);
                         sl.SetCellStyle(1, columnNumber, headerStyle);
                         columnNumber++;
                     }
-
+                    //Create data. 
                     int rowNumber = 2;
                     foreach (var cable in cableListViewModel.Cables)
                     {
@@ -438,23 +470,45 @@ namespace AVCAD.Excel
 
                         rowNumber++;
                     }
-
-                    //sl.Filter("A1", $"F{sortedCables.Count()}");
+                    //Final properties and saving;
                     sl.AutoFitColumn(1, _importHeaders.Count);
                     sl.SaveAs(saveFileDialog.FileName);
                     MessageBox.Show("Success");
                 }
             }
         }
-        private class CablesInReels : Models.CableReel
-        {
-            public double LeftOver { get; set; }
-            public int Number { get; set; }
-            public List<ViewModels.CableViewModel>? Cables { get; set; }
 
-            public CablesInReels()
+        /// <summary>
+        /// This class is inherited from the cable reels with some additional parameters which show cables, leftover and number of this cable reel in order.
+        /// </summary>
+        private class CableReelsInUsage : Models.CableReel
+        {
+            //Leftover of cable length
+            public double LeftOver { get; set; }
+            //Number of the reel
+            public int Number { get; set; }
+            //Cables inside the reel
+            public List<ViewModels.CableViewModel> Cables { get; set; }
+
+
+            /// <summary>
+            /// Constructor that creates a new collection and set leftover equal length
+            /// </summary>
+            public CableReelsInUsage()
             {
                 LeftOver = Length;
+                Cables = new List<CableViewModel>();
+            }
+
+            /// <summary>
+            /// Method that replaces properties of the cable reel.
+            /// </summary>
+            /// <param name="reel">Reel that we have to use to replace fields</param>
+            public void ReplaceCableReel(in ViewModels.CableReelViewModel reel)
+            {
+                LeftOver -= Length - reel.Length;
+                Length = reel.Length;
+                Name = reel.Name;
             }
         }
     }

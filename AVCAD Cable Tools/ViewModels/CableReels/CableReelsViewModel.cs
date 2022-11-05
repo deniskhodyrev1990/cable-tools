@@ -14,14 +14,16 @@ namespace AVCAD.ViewModels
         public long Id => _cableReel.Id;
         public string Name => _cableReel.Name;
         public string? CableType => _cableReel.CableType.ToString();
-        public double? Length => _cableReel.Length;
+        public double Length => _cableReel.Length;
         public bool IsSelected
         {
             get { return isSelected; }
             set
             {
                 isSelected = value;
+                OnPropertyChanged(nameof(isSelected));
             }
+
         }
 
         public CableReelViewModel(Models.CableReel cableReel)

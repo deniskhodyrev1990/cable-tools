@@ -20,7 +20,7 @@
                 <Button 
                     Content="Load SQLite database"
                     Command="{Binding LoadSQLiteDatabaseCableTypeCommand}"
-                    Margin="10">
+                    Margin="10" Cursor="Hand">
                     </Button>
                 <Button 
                     Content="Create cable type"
@@ -44,7 +44,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="0.1*" IsReadOnly="True"></DataGridTextColumn>
                         <DataGridTextColumn Header="Cable Type" Binding="{Binding Type}" Width="0.5*" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTextColumn Header="AWG" Binding="{Binding AWG}" Width="0.2*" IsReadOnly="True"></DataGridTextColumn>
+                        <!--<DataGridTextColumn Header="AWG" Binding="{Binding AWG}" Width="0.2*" IsReadOnly="True"></DataGridTextColumn>-->
                         <DataGridTextColumn Header="Max Length" Binding="{Binding MaxLength}" Width="0.2*" IsReadOnly="True"></DataGridTextColumn>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>

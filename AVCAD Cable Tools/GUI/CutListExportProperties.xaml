@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Cut List Export Properties" 
         SizeToContent="WidthAndHeight"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     <Grid>
         <StackPanel Orientation="Vertical" Margin="10">
             <Label
@@ -15,32 +16,48 @@
                 FontSize="16"
                 HorizontalAlignment="Center">
                 </Label>
-            <ListView
-                MinHeight="250"
-                MinWidth="250"
-                MaxHeight="350"
-                ItemsSource="{Binding CableReels}"
-                x:Name="CableReelsListView"
-                ScrollViewer.VerticalScrollBarVisibility="Visible"
-                ScrollViewer.CanContentScroll="True"
-                >
-                <ListView.View>
-                    <GridView>
-                        <GridView.Columns>
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Tag="{Binding IsSelected}" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" />
-                            <GridViewColumn DisplayMemberBinding="{Binding CableType}" Header="Cable Type" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Length}" Header="Length" />
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-                </ListView>
+
+            <DataGrid
+                x:Name="CableReelsDataGrid"
+                ItemsSource="{Binding FilteredCollection}"
+                Margin="10"
+                Width="500"
+                Height="400"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Width="0.1*" >
+                        <DataGridCheckBoxColumn.Header>
+                            <CheckBox 
+                                    x:Name="SelectAllCheckBox"
+                                    Command="{Binding Path=DataContext.SelectDeselectAllCableReelsCommand, ElementName=CableReelsDataGrid}" 
+                                    CommandParameter="{Binding ElementName=SelectAllCheckBox, Path=IsChecked}" />
+                        </DataGridCheckBoxColumn.Header>
+                    </DataGridCheckBoxColumn>
+                    <DataGridTextColumn Binding="{Binding Name}"  Width="0.4*" IsReadOnly="True">
+                        <DataGridTextColumn.Header>
+                            <StackPanel Orientation="Vertical">
+                                <Label VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Content="Name" />
+                                <TextBox x:Name="NameTextBox"  MinWidth="100" Text="{Binding DataContext.NameFilter,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding CableType}" Width="0.3*" IsReadOnly="True">
+                        <DataGridTextColumn.Header>
+                            <StackPanel Orientation="Vertical">
+                                <Label VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Content="Cable Type" />
+                                <TextBox x:Name="CableTypeTextBox" Text="{Binding DataContext.TypeFilter,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}" MinWidth="100" />
+                            </StackPanel>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Length}" Header="Length" Width="0.2*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+
+
+               
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button 
                     x:Name="SubmitBNT"

@@ -20,7 +20,7 @@ namespace AVCAD.ViewModels
         private double extraLength;
         private string cableType;
 
-        public string? CableNumber => _cable.CableNumber;
+        public string CableNumber => _cable.CableNumber;
         public string? SysnameOut => _cable.SysnameOut;
         public string? ConnectorOut => _cable.ConnectorOut;
         public string? PortOut => _cable.DescriptionOut;

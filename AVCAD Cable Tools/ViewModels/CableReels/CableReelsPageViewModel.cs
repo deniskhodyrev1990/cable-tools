@@ -26,8 +26,8 @@ namespace AVCAD.ViewModels
         public CableReelsPageViewModel()
         {
             LoadSQLiteDatabaseCableReelsCommand = new Commands.CableReels.LoadSQLiteDatabaseCableReelCommand(this);
-            AddCableReelCommand = new Commands.CableReels.CreateEditCableReelsCommand(this, new Models.CableReel());
-            EditCableReelCommand = new Commands.CableReels.CreateEditCableReelsCommand(this);
+            AddCableReelCommand = new Commands.CableReels.CreateEditCableReelsCommand(this);
+            EditCableReelCommand = new Commands.CableReels.CreateEditCableReelsCommand(this, false);
             DeleteCableReelCommand = new Commands.CableReels.DeleteCableReelCommand(this);
             this.CableReels = new ObservableCollection<ViewModels.CableReelViewModel>();
             this.CableTypes = new ObservableCollection<Models.CableType>();

@@ -19,17 +19,19 @@ namespace AVCAD.Commands.CableTypes
         private CableTypesViewModel cableTypesViewModel;
         private bool create;
 
-        public CreateEditCableTypesCommand(CableTypesPageViewModel cableTypesPageViewModel)
-        {
-            this.cableTypesPageViewModel = cableTypesPageViewModel;
-            create = false;
-        }
 
         public CreateEditCableTypesCommand(CableTypesPageViewModel cableTypesPageViewModel, CableType cableType)
         {
             this.cableTypesPageViewModel = cableTypesPageViewModel;
             this.cableType = cableType;
             create = true;
+        }
+
+        public CreateEditCableTypesCommand(CableTypesPageViewModel cableTypesPageViewModel)
+        {
+            this.cableTypesPageViewModel = cableTypesPageViewModel;
+            this.cableType = new CableType();
+            create = false;
         }
 
         public override void Execute(object? parameter)
