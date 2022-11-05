@@ -32,33 +32,38 @@ namespace AVCAD.Commands.CableReels
         /// <param name="parameter">Collection of CableReelViewModel</param>
         public override void Execute(object? parameter)
         {
-            IEnumerable enumerable = parameter as IEnumerable;
-            if (enumerable == null)
-                throw new ArgumentException("parameter has to be an IEnumerable.", "parameter");
-            //Get selected CableViewModels from the parameter.
-            var selectedReels = enumerable.OfType<ViewModels.CableReelViewModel>().ToList();
-
-            //Ask if user reaaly want to delete this item.
-            var dialog = MessageBox.Show("Do you want to delete selected cable reels from the database?", "Warning", MessageBoxButton.YesNo);
-            if (dialog == MessageBoxResult.Yes)
+            try
             {
-                // Get Ids of the selected elements
-                var selectedCableReelsId = selectedReels.Select(i => i.Id);
+                IEnumerable enumerable = parameter as IEnumerable;
+                if (enumerable == null)
+                    throw new ArgumentException("parameter has to be an IEnumerable.", "parameter");
+                //Get selected CableViewModels from the parameter.
+                var selectedReels = enumerable.OfType<ViewModels.CableReelViewModel>().ToList();
 
-                using (var db = new SQlite.ApplicationContext())
+                //Ask if user realy wants to delete this item.
+                var dialog = MessageBox.Show("Do you want to delete selected cable reels from the database?", "Warning", MessageBoxButton.YesNo);
+                if (dialog == MessageBoxResult.Yes)
                 {
-                    //Find the cableReels in the database
-                    var cableReels = db.CableReels.Where(i => selectedCableReelsId.Contains(i.Id));
-                    //Remove, save and update data.
-                    foreach (var cableReel in cableReels)
+                    // Get Ids of the selected elements
+                    var selectedCableReelsId = selectedReels.Select(i => i.Id);
+
+                    using (var db = new SQlite.ApplicationContext())
                     {
-                        db.CableReels.Remove(cableReel);
+                        //Find the cableReels in the database
+                        var cableReels = db.CableReels.Where(i => selectedCableReelsId.Contains(i.Id));
+                        //Remove, save and update data.
+                        foreach (var cableReel in cableReels)
+                        {
+                            db.CableReels.Remove(cableReel);
+                        }
+                        db.SaveChanges();
                     }
-                    db.SaveChanges();
+                    cableReelsPageViewModel.UpdateData();
+
                 }
-                cableReelsPageViewModel.UpdateData();
-                
             }
+
+            catch (ArgumentException ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

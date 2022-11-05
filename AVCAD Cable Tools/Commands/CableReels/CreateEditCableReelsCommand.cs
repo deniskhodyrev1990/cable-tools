@@ -4,6 +4,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace AVCAD.Commands.CableReels
     /// </summary>
     public class CreateEditCableReelsCommand : CommandBase
     {
-        private CableReel cableReel;
+        public CableReel CableReel { get; set; }
         private CableReelsPageViewModel cableReelsPageViewModel;
         private bool create;
 
@@ -35,53 +36,58 @@ namespace AVCAD.Commands.CableReels
         /// <summary>
         /// Execute method
         /// </summary>
-        /// <param name="parameter">It is not needed here.</param>
+        /// <param name="parameter">Enumerable of CableReelViewModel</param>
         public override void Execute(object? parameter)
         {
-            using (var db = new SQlite.ApplicationContext())
+            try
             {
-                //If edit then we just check the first selected element (if the collection is bigger);
-                if (!create)
-                {
-                    var selectedCableReels = cableReelsPageViewModel.CableReels.Where(i => i.IsSelected);
-                    if (selectedCableReels.Count() > 0)
-                    {
-                        cableReel = db.CableReels.Find(selectedCableReels.First().Id);
-                    }
-                }
-                //If create then we need to create a new instance
-                else
-                    cableReel = new CableReel();
-                //Open window with these properties. We need a cableReel instance and cabletypes from the database
-                var ctWindow = new GUI.CreateEditCableReel(cableReel, db.CableTypes.ToList());
-                if (ctWindow.ShowDialog() == true)
-                {
-                    //Get a new CableReel and check if it exists.
-                    var ct = ctWindow.CableReel;
-                    //Here we check for the duplicates. I compare length, cabletype and name with existing ones;
-                    //If 'edit' then here will be more than 1 (itself included). If 'create' - just one
-                    // TODO Find why it does not check with equal and hash rewritten.
-                    var duplicates = db.CableReels.ToList()
-                                                  .Where(i => i.Length == ct.Length && i.CableType == ct.CableType && i.Name == ct.Name)
-                                                  .Count();
-                    if ((duplicates > 1 && !create) || (create && duplicates > 0))
-                    {
-                        MessageBox.Show("A cable reel with these properties already exists");
-                        return;
-                    }
+                //Get selected CableViewModels from the parameter.
+                CableReelViewModel selectedCableReel = parameter as CableReelViewModel;
+                if (selectedCableReel == null && !create)
+                    throw new ArgumentException("parameter has to be an CableReelViewModel.", "parameter");
 
-                    //Create or Edit as needed.
-                    if (create)
+                using (var db = new SQlite.ApplicationContext())
+                {
+                    //If edit then we just get the element from the database.;
+                    if (!create)
                     {
-                        db.CableReels.Add(ct);
+                        CableReel = db.CableReels.Find(selectedCableReel.Id);
                     }
+                    //If create then we need to create a new instance
                     else
-                        db.Entry(ct).State = EntityState.Modified;
-                    db.SaveChanges();
-                    //Update data.
-                    cableReelsPageViewModel.UpdateData();
+                        CableReel = new CableReel();
+                    //Open window with these properties. We need a cableReel instance and cabletypes from the database
+                    var ctWindow = new GUI.CreateEditCableReel(CableReel, db.CableTypes.ToList());
+                    if (ctWindow.ShowDialog() == true)
+                    {
+                        //Get a new CableReel and check if it exists.
+                        var ct = ctWindow.CableReel;
+                        //Here we check for the duplicates. I compare length, cabletype and name with existing ones;
+                        //If 'edit' then here will be more than 1 (itself included). If 'create' - just one
+                        // TODO Find why it does not check with equal and hash rewritten.
+                        var duplicates = db.CableReels.ToList()
+                                                      .Where(i => i.Length == ct.Length && i.CableType == ct.CableType && i.Name == ct.Name)
+                                                      .Count();
+                        if ((duplicates > 1 && !create) || (create && duplicates > 0))
+                        {
+                            MessageBox.Show("A cable reel with these properties already exists");
+                            return;
+                        }
+
+                        //Create or Edit as needed.
+                        if (create)
+                        {
+                            db.CableReels.Add(ct);
+                        }
+                        else
+                            db.Entry(ct).State = EntityState.Modified;
+                        db.SaveChanges();
+                        //Update data.
+                        cableReelsPageViewModel.UpdateData();
+                    }
                 }
             }
+            catch (ArgumentException ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

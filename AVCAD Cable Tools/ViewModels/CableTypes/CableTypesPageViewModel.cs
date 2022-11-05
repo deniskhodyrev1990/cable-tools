@@ -30,11 +30,10 @@ namespace AVCAD.ViewModels
         public CableTypesPageViewModel()
         {
             LoadSQLiteDatabaseCableTypeCommand = new Commands.CableTypes.LoadSQLiteDatabaseCableTypeCommand(this);
-            AddCableTypeCommand = new Commands.CableTypes.CreateEditCableTypesCommand(this, new Models.CableType());
-            EditCableTypeCommand = new Commands.CableTypes.CreateEditCableTypesCommand(this);
+            AddCableTypeCommand = new Commands.CableTypes.CreateEditCableTypesCommand(this);
+            EditCableTypeCommand = new Commands.CableTypes.CreateEditCableTypesCommand(this, false);
             DeleteCableTypeCommand = new Commands.CableTypes.DeleteCableTypeCommand(this);
             this.CableTypes = new ObservableCollection<ViewModels.CableTypesViewModel>();
-
         }
 
 

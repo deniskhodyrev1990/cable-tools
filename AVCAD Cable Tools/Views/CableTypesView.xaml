@@ -49,8 +49,12 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Edit this Cable Type" Command="{Binding EditCableTypeCommand}"></MenuItem>
-                            <MenuItem Header="Delete this Cable Type" Command="{Binding DeleteCableTypeCommand}"></MenuItem>
+                            <MenuItem Header="Edit this Cable Type" 
+                                      Command="{Binding EditCableTypeCommand}"
+                                      CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"></MenuItem>
+                            <MenuItem Header="Delete this Cable Type" 
+                                      Command="{Binding DeleteCableTypeCommand}"
+                                      CommandParameter="{Binding PlacementTarget.SelectedItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"></MenuItem>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

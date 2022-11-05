@@ -1,6 +1,7 @@
 ﻿using AVCAD.Models;
 using AVCAD.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,34 +10,57 @@ using System.Windows;
 
 namespace AVCAD.Commands.CableTypes
 {
+    /// <summary>
+    /// Command to delete the cable types.
+    /// </summary>
     public class DeleteCableTypeCommand : CommandBase
     {
         private CableTypesPageViewModel cableTypesPageViewModel;
-        private CableType cableType;
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="cableTypesPageViewModel">page view model</param>
         public DeleteCableTypeCommand(CableTypesPageViewModel cableTypesPageViewModel)
         {
             this.cableTypesPageViewModel = cableTypesPageViewModel;
         }
 
+        /// <summary>
+        /// Execute method to delete items
+        /// </summary>
+        /// <param name="parameter">Should be enumerable CableTypesViewModel </param>
         public override void Execute(object? parameter)
         {
-            var dialog = MessageBox.Show("Do you want to delete selected cable types from the database?", "Warning", MessageBoxButton.YesNo);
-            if (dialog == MessageBoxResult.Yes)
+            try
             {
-                var selectedCableTypesId = cableTypesPageViewModel.CableTypes.Where(i => i.IsSelected).Select(i => i.Id);
-                using (var db = new SQlite.ApplicationContext())
+                IEnumerable enumerable = parameter as IEnumerable;
+                if (enumerable == null)
+                    throw new ArgumentException("parameter has to be an CableTypesViewModel.", "parameter");
+                //Get selected CableTypeModels from the parameter.
+                var selectedTypes = enumerable.OfType<ViewModels.CableTypesViewModel>().ToList();
+
+                //Ask if user realy wants to delete this item.
+                var dialog = MessageBox.Show("Do you want to delete selected cable types from the database?", "Warning", MessageBoxButton.YesNo);
+                if (dialog == MessageBoxResult.Yes)
                 {
-                    var cableTypes = db.CableTypes.Where(i => selectedCableTypesId.Contains(i.Id));
-                    foreach (var cableType in cableTypes)
+                    // Get Ids of the selected elements
+                    var selectedCableTypesId = selectedTypes.Where(i => i.IsSelected).Select(i => i.Id);
+                    using (var db = new SQlite.ApplicationContext())
                     {
-                        db.CableTypes.Remove(cableType);
+                        //Find the cableReels in the database
+                        var cableTypes = db.CableTypes.Where(i => selectedCableTypesId.Contains(i.Id));
+                        //Remove, save and update data.
+                        foreach (var cableType in cableTypes)
+                        {
+                            db.CableTypes.Remove(cableType);
+                        }
+                        db.SaveChanges();
                     }
-                    db.SaveChanges();
+                    cableTypesPageViewModel.UpdateData();
                 }
-                cableTypesPageViewModel.UpdateData();
-                
             }
+            catch (ArgumentException ex) { MessageBox.Show(ex.Message); }
+
         }
     }
 }

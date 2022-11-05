@@ -51,7 +51,9 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Edit this Cable Reel" Command="{Binding EditCableReelCommand}"></MenuItem>
+                            <MenuItem Header="Edit this Cable Reel" 
+                                      Command="{Binding EditCableReelCommand}"
+                                      CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"></MenuItem>
                             <MenuItem 
                                 Header="Delete this Cable Reel" 
                                 Command="{Binding DeleteCableReelCommand}"
