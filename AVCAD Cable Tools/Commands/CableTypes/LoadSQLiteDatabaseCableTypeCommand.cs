@@ -1,12 +1,4 @@
 ﻿using AVCAD.ViewModels;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace AVCAD.Commands.CableTypes
 {
@@ -15,7 +7,7 @@ namespace AVCAD.Commands.CableTypes
     /// </summary>
     public class LoadSQLiteDatabaseCableTypeCommand : CommandBase
     {
-        private CableTypesPageViewModel cableTypePageViewModel;
+        private CableTypesPageViewModel _cableTypePageViewModel;
 
         /// <summary>
         /// Constructor
@@ -23,7 +15,7 @@ namespace AVCAD.Commands.CableTypes
         /// <param name="cableTypePageViewModel">page view model</param>
         public LoadSQLiteDatabaseCableTypeCommand(CableTypesPageViewModel cableTypePageViewModel)
         {
-            this.cableTypePageViewModel = cableTypePageViewModel;
+            this._cableTypePageViewModel = cableTypePageViewModel;
         }
 
         /// <summary>
@@ -32,7 +24,7 @@ namespace AVCAD.Commands.CableTypes
         /// <param name="parameter"></param>
         public override void Execute(object? parameter)
         {
-            cableTypePageViewModel.UpdateData();
+            _cableTypePageViewModel.UpdateData();
         }
     }
 }

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using AVCAD.Models;
 
 namespace AVCAD.ViewModels
 {
+    //ViewModel for the CableList Page.
     public class CableListViewModel: ViewModelBase
     {
         public ObservableCollection<CableViewModel> Cables { get; set; }
+
+        //Visibility section
         public bool SysnameOutVisible
         {
             get
@@ -144,6 +141,7 @@ namespace AVCAD.ViewModels
             }
         }
 
+        //Filename
         private string _fileName;
         public string Filename
         {
@@ -158,7 +156,7 @@ namespace AVCAD.ViewModels
             }
         }
 
-
+        //Commands
         public ICommand LoadExcelFileCommand { get; }
         public ICommand SaveExcelFileCommand { get; }
         public ICommand MakeMulticoreCommand { get; }
@@ -178,11 +176,13 @@ namespace AVCAD.ViewModels
             Cables = new ObservableCollection<CableViewModel>();
         }
 
-        public void AddCable(Models.Cable cable)
+        //Method to add the cable to Cables collection
+        public void AddCable(Cable cable)
         {
             Cables.Add(new CableViewModel(cable));
         }
 
+        //Clear cable collection.
         public void Clear()
         {
             Cables.Clear();

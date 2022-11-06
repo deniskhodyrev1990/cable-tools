@@ -1,16 +1,14 @@
-﻿using AVCAD.SQlite;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows.Input;
+using AVCAD.ViewModels;
 
-namespace AVCAD.ViewModels.CableReels
+namespace AVCAD.CableReels
 {
+    /// <summary>
+    /// View Model for the CutListProperties view that is inherited from the CableReelsPageViewModel
+    /// </summary>
     public class CutListPropertiesViewModel : CableReelsPageViewModel
     {
         //Command to select/deselect all the checkboxes

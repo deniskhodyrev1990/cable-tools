@@ -1,11 +1,4 @@
-﻿using AVCAD.ViewModels;
-using AVCAD.ViewModels.CableReels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AVCAD.CableReels;
 
 namespace AVCAD.Commands.CableReels
 {
@@ -14,7 +7,7 @@ namespace AVCAD.Commands.CableReels
     /// </summary>
     public class SelectDeselectAllCableReelsCommand : CommandBase
     {
-        private CutListPropertiesViewModel cutListPropertiesViewModel;
+        private CutListPropertiesViewModel _cutListPropertiesViewModel;
 
         /// <summary>
         /// Constructor for this command
@@ -22,7 +15,7 @@ namespace AVCAD.Commands.CableReels
         /// <param name="cutListPropertiesViewModel">Current view model of the page</param>
         public SelectDeselectAllCableReelsCommand(CutListPropertiesViewModel cutListPropertiesViewModel)
         {
-            this.cutListPropertiesViewModel = cutListPropertiesViewModel;
+            this._cutListPropertiesViewModel = cutListPropertiesViewModel;
         }
 
         /// <summary>
@@ -33,7 +26,7 @@ namespace AVCAD.Commands.CableReels
         {
             bool isChecked = (bool)parameter;
             //Set the checked property here to the selected one in filtered collection
-            foreach (var cableReel in cutListPropertiesViewModel.FilteredCollection)
+            foreach (var cableReel in _cutListPropertiesViewModel.FilteredCollection)
             {
                 cableReel.IsSelected = isChecked;
             }

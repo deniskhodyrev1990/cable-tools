@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AVCAD.GUI"
         mc:Ignorable="d"
         Title="Multicore Properties"
         WindowStartupLocation="CenterScreen"
@@ -29,16 +28,16 @@
             </ComboBox>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button 
-                    x:Name="SubmitBNT"
+                    x:Name="SubmitBtn"
                     Content="Submit"
                     Margin="10"
                     Click="SubmitBNT_Click"
                     ></Button>
                 <Button 
-                    x:Name="CancelBNT"
+                    x:Name="CancelBtn"
                     Content="Cancel"
                     Margin="10"
-                    HorizontalAlignment="Right" Click="CancelBNT_Click"
+                    HorizontalAlignment="Right" Click="CancelBNT_Click" Cursor="Hand"
                     ></Button>
             </StackPanel>
 

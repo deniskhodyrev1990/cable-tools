@@ -103,7 +103,7 @@
                     <DataGridTextColumn Header="Port In" Binding="{Binding PortIn}" IsReadOnly="True" Width="Auto"
                                         Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource PortInVisibleProxy}}"/>
                     <DataGridTextColumn Header="Model In" Binding="{Binding ModelIn}" IsReadOnly="True" Width="Auto"
-                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource ModelOutVisibleProxy}}"/>
+                                        Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource ModelInVisibleProxy}}"/>
                     <DataGridTextColumn Header="Location In" Binding="{Binding LocationIn}" IsReadOnly="True" Width="Auto"
                                         Visibility="{Binding Data, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource LocationInVisibleProxy}}"/>
                     <DataGridTextColumn Header="Cable Type" Binding="{Binding CableType}" IsReadOnly="True" Width="Auto"/>

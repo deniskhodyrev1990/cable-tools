@@ -1,27 +1,21 @@
 ﻿using AVCAD.Models;
 using AVCAD.ViewModels;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AVCAD.Commands.CableTypes
 {
     /// <summary>
-    /// Command to create or edit cable type
+    /// Command to _create or edit cable type
     /// </summary>
     public class CreateEditCableTypesCommand : CommandBase
     {
         public CableType CableType { get; set; }
 
-        private CableTypesPageViewModel cableTypesPageViewModel;
-        private bool create;
+        private CableTypesPageViewModel _cableTypesPageViewModel;
+        private bool _create;
 
         /// <summary>
         /// Constructor
@@ -30,8 +24,8 @@ namespace AVCAD.Commands.CableTypes
         /// <param name="create"></param>
         public CreateEditCableTypesCommand(CableTypesPageViewModel cableTypesPageViewModel, bool create = true)
         {
-            this.cableTypesPageViewModel = cableTypesPageViewModel;
-            this.create = create;
+            this._cableTypesPageViewModel = cableTypesPageViewModel;
+            this._create = create;
         }
 
         /// <summary>
@@ -46,15 +40,15 @@ namespace AVCAD.Commands.CableTypes
                 {
                     //Get selected CableViewModels from the parameter.
                     CableTypesViewModel selectedCableType = parameter as CableTypesViewModel;
-                    if (selectedCableType == null && !create)
+                    if (selectedCableType == null && !_create)
                         throw new ArgumentException("parameter has to be an CableReelViewModel.", "parameter");
 
-                    if (!create)
+                    if (!_create)
                     {
                         //If edit then we just get the element from the database.;
                         CableType = db.CableTypes.Find(selectedCableType.Id);
                     }
-                    //If create then we need to create a new instance
+                    //If _create then we need to _create a new instance
                     else
                         CableType = new CableType();
                     //Open window with these properties. We need a CableType instance and cabletypes from the database
@@ -64,25 +58,23 @@ namespace AVCAD.Commands.CableTypes
                         //Get a new CableType and check if it exists.
                         var ct = ctWindow.CableType;
 
-                        var duplicates = db.CableTypes.ToList()
-                                                      .Where(i => i.MaxLength == ct.MaxLength && i.Type == ct.Type)
-                                                      .Count();
+                        var duplicates = db.CableTypes.ToList().Count(i=> i.MaxLength == ct.MaxLength && i.Type == ct.Type);
                         // Here we check for the duplicates. I compare MaxLength, Type  with existing ones;
-                        //If 'edit' then here will be more than 1 (itself included). If 'create' - just one
-                        if ((duplicates > 1 && !create) || (create && duplicates > 0))
+                        //If 'edit' then here will be more than 1 (itself included). If '_create' - just one
+                        if ((duplicates > 1 && !_create) || (_create && duplicates > 0))
                         {
                             MessageBox.Show("A cable type with these properties already exists");
                             return;
                         }
                         //Create or Edit as needed.
-                        if (create)
+                        if (_create)
                             db.CableTypes.Add(ct);
                         else
                             db.Entry(ct).State = EntityState.Modified;
                         db.SaveChanges();
                     }
                     //Update data.
-                    cableTypesPageViewModel.UpdateData();
+                    _cableTypesPageViewModel.UpdateData();
                 }
             }
             catch (ArgumentException ex) { MessageBox.Show(ex.Message); }

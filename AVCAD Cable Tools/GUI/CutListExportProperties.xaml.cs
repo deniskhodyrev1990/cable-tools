@@ -1,6 +1,6 @@
 ﻿using AVCAD.Models;
 using AVCAD.ViewModels;
-using AVCAD.ViewModels.CableReels;
+using AVCAD.CableReels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +22,9 @@ namespace AVCAD.GUI
     /// </summary>
     public partial class CutListExportProperties : Window
     {
-        private List<CableReel> cableReels;
-        private CableReelsPageViewModel cableReelsPageViewModel;
-        private CutListPropertiesViewModel cutListPropertiesViewModel;
+        private List<CableReel> _cableReels;
+        private CableReelsPageViewModel _cableReelsPageViewModel;
+        private CutListPropertiesViewModel _cutListPropertiesViewModel;
 
         public List<CableReel> CableReels { get; internal set; }
 
@@ -42,13 +42,13 @@ namespace AVCAD.GUI
 
         public CutListExportProperties(CableReelsPageViewModel cableReelsPageViewModel):this()
         {
-            this.cableReelsPageViewModel = cableReelsPageViewModel;
+            this._cableReelsPageViewModel = cableReelsPageViewModel;
             DataContext = cableReelsPageViewModel;
         }
 
         public CutListExportProperties(CutListPropertiesViewModel cutListPropertiesViewModel):this()
         {
-            this.cutListPropertiesViewModel = cutListPropertiesViewModel;
+            this._cutListPropertiesViewModel = cutListPropertiesViewModel;
             DataContext = cutListPropertiesViewModel;
         }
 

@@ -12,7 +12,7 @@ TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Projects\AVCAD Cable Tools\AVCAD Cable Tools\App.xaml
 11644848467
 167268463
-51-751701295
+51-1854167110
 217674996889
 GUI\CreateEditCableReel.xaml;GUI\CreateEditCableType.xaml;GUI\CreateMulticoreProperties.xaml;GUI\CutListExportProperties.xaml;GUI\SelectCableTypeForCables.xaml;Views\CableListView.xaml;Views\CableReelsView.xaml;Views\CableTypesView.xaml;Views\MainWindow.xaml;Views\SettingsView.xaml;Views\UnitsView.xaml;
 

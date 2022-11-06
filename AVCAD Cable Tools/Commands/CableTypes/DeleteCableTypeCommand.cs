@@ -1,11 +1,7 @@
-﻿using AVCAD.Models;
-using AVCAD.ViewModels;
+﻿using AVCAD.ViewModels;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AVCAD.Commands.CableTypes
@@ -15,14 +11,14 @@ namespace AVCAD.Commands.CableTypes
     /// </summary>
     public class DeleteCableTypeCommand : CommandBase
     {
-        private CableTypesPageViewModel cableTypesPageViewModel;
+        private CableTypesPageViewModel _cableTypesPageViewModel;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cableTypesPageViewModel">page view model</param>
         public DeleteCableTypeCommand(CableTypesPageViewModel cableTypesPageViewModel)
         {
-            this.cableTypesPageViewModel = cableTypesPageViewModel;
+            this._cableTypesPageViewModel = cableTypesPageViewModel;
         }
 
         /// <summary>
@@ -37,7 +33,7 @@ namespace AVCAD.Commands.CableTypes
                 if (enumerable == null)
                     throw new ArgumentException("parameter has to be an CableTypesViewModel.", "parameter");
                 //Get selected CableTypeModels from the parameter.
-                var selectedTypes = enumerable.OfType<ViewModels.CableTypesViewModel>().ToList();
+                var selectedTypes = enumerable.OfType<CableTypesViewModel>().ToList();
 
                 //Ask if user realy wants to delete this item.
                 var dialog = MessageBox.Show("Do you want to delete selected cable types from the database?", "Warning", MessageBoxButton.YesNo);
@@ -56,7 +52,7 @@ namespace AVCAD.Commands.CableTypes
                         }
                         db.SaveChanges();
                     }
-                    cableTypesPageViewModel.UpdateData();
+                    _cableTypesPageViewModel.UpdateData();
                 }
             }
             catch (ArgumentException ex) { MessageBox.Show(ex.Message); }

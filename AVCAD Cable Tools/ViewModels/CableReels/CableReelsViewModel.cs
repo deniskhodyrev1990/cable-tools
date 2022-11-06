@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AVCAD.Models;
 
 namespace AVCAD.ViewModels
 {
+    /// <summary>
+    /// Cable reel view model
+    /// </summary>
     public class CableReelViewModel: ViewModelBase
     {
         private bool isSelected;
-        private readonly Models.CableReel _cableReel;
+        private readonly CableReel _cableReel;
         public long Id => _cableReel.Id;
         public string Name => _cableReel.Name;
         public string? CableType => _cableReel.CableType.ToString();
@@ -26,7 +24,11 @@ namespace AVCAD.ViewModels
 
         }
 
-        public CableReelViewModel(Models.CableReel cableReel)
+        /// <summary>
+        /// Default constructor from the CableReel
+        /// </summary>
+        /// <param name="cableReel">CableReel</param>
+        public CableReelViewModel(CableReel cableReel)
         {
             _cableReel = cableReel;
         }

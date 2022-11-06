@@ -1,9 +1,6 @@
-﻿using AVCAD.ViewModels.Settings;
-using System;
+﻿using AVCAD.Settings;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AVCAD.Models;
 
 namespace AVCAD.Commands.Settings
 {
@@ -12,7 +9,7 @@ namespace AVCAD.Commands.Settings
     /// </summary>
     public class ChangeDatabaseLocationCommand : CommandBase
     {
-        private SettingsViewModel settingsViewModel;
+        private SettingsViewModel _settingsViewModel;
 
         /// <summary>
         /// Constructor
@@ -20,7 +17,7 @@ namespace AVCAD.Commands.Settings
         /// <param name="settingsViewModel"></param>
         public ChangeDatabaseLocationCommand(SettingsViewModel settingsViewModel)
         {
-            this.settingsViewModel = settingsViewModel;
+            this._settingsViewModel = settingsViewModel;
         }
 
         // TODO Check SQLite exceptions and situations.
@@ -31,14 +28,15 @@ namespace AVCAD.Commands.Settings
         /// <param name="parameter"></param>
         public override void Execute(object? parameter)
         {
-            var cables = new List<Models.Cable>();
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".db";
-            dlg.Filter = "SQLite Databases (.db)|*.db";
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                DefaultExt = ".db",
+                Filter = "SQLite Databases (.db)|*.db"
+            };
 
             if (dlg.ShowDialog() == true)
             {
-                settingsViewModel.PathToDatabase = dlg.FileName;
+                _settingsViewModel.PathToDatabase = dlg.FileName;
             }
         }
     }

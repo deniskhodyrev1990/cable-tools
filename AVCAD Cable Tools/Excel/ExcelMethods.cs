@@ -1,42 +1,35 @@
 ﻿using AVCAD.Models;
 using AVCAD.ViewModels;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Office2013.PowerPoint.Roaming;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Vml.Office;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.VisualBasic;
 using Microsoft.Win32;
 using SpreadsheetLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AVCAD.Excel
 {
     public static class ExcelMethods
     {
-        readonly static List<String> _importHeaders = new List<string> { "CableNumber", "SysnameOut", "ConnectorOut", "DescriptionOut", "LocationOut" ,"ModelOut" ,
+        readonly static List<String> importHeaders = new List<string> { "CableNumber", "SysnameOut", "ConnectorOut", "DescriptionOut", "LocationOut" ,"ModelOut" ,
         "SysnameIn", "ConnectorIn", "DescriptionIn", "LocationIn", "ModelIn", "Cable Type", "Cable Length", "Extra(%)", "Multicore Members"};
 
         /// <summary>
-        /// This static methods helps to load the excel file, convert it to the list of Models.Cable and send it further to ViewModels.CableViewModel
+        /// This static methods helps to load the excel file, convert it to the list of Cable and send it further to CableViewModel
         /// </summary>
         /// <param name="filename">Out parameter to get a filename for the viewmodel</param>
-        /// <returns>Returns a list of Models.Cable</returns>
+        /// <returns>Returns a list of Cable</returns>
         /// <exception cref="Exceptions.ExcelHeadersException">This exception throws if there is no Cable Number header if the excel file</exception>
-        public static List<Models.Cable> GetCablesFromCableListExcel(out String filename)
+        public static List<Cable> GetCablesFromCableListExcel(out String filename)
         {
             filename = String.Empty;
-            var cables = new List<Models.Cable>();
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".xlsx";
-            dlg.Filter = "Excel documents (.xlsx)|*.xlsx";
+            var cables = new List<Cable>();
+            var dlg = new OpenFileDialog
+            {
+                DefaultExt = ".xlsx",
+                Filter = "Excel documents (.xlsx)|*.xlsx"
+            };
 
             if (dlg.ShowDialog() == true)
             {
@@ -66,7 +59,7 @@ namespace AVCAD.Excel
                 //Check all the other rows to get values. The data starts from the second row.
                 for (int j = 2; j < stats.EndRowIndex + 1; j++)
                 {
-                    var cable = new Models.Cable
+                    var cable = new Cable
                     {
                         CableNumber = sld.GetCellValueAsString(j, headers["CableNumber"]),
                         SysnameOut = GetCellData(headers, sld, "SysnameOut",j, String.Empty),
@@ -79,7 +72,7 @@ namespace AVCAD.Excel
                         DescriptionIn = GetCellData(headers, sld, "DescriptionIn", j, String.Empty),
                         LocationIn = GetCellData(headers, sld, "LocationIn", j, String.Empty),
                         ModelIn = GetCellData(headers, sld, "ModelIn", j, String.Empty),
-                        CableType = new Models.CableType(GetCellData(headers, sld, "Cable Type", j, String.Empty)),
+                        CableType = new CableType(GetCellData(headers, sld, "Cable Type", j, String.Empty)),
                         CableLength = GetCellData(headers, sld, "Cable Length", j, 0.0),
                         ExtraLength = GetCellData(headers, sld, "Extra(%)", j, 0.0),
                         MulticoreMembers = GetCellData(headers, sld, "Multicore Members", j, String.Empty)
@@ -104,11 +97,11 @@ namespace AVCAD.Excel
         {
             if (headers.ContainsKey(header))
             {
-                if (defaultValue.GetType() == typeof(double))
+                if (defaultValue is double)
                 {
                     return (T)Convert.ChangeType(sld.GetCellValueAsDouble(j, headers[header]), typeof(T));
                 }
-                if (defaultValue.GetType() == typeof(string))
+                if (defaultValue is string)
                 {
                     return (T)Convert.ChangeType(sld.GetCellValueAsString(j, headers[header]), typeof(T));
                 }
@@ -121,13 +114,15 @@ namespace AVCAD.Excel
         /// </summary>
         /// <param name="cableListViewModel">CableViewModels to get all the information that was in the view</param>
         /// <param name="cableReels">Selected cable reels to use.</param>
-        public static void CreateCutList(CableListViewModel cableListViewModel, List<ViewModels.CableReelViewModel> cableReels)
+        public static void CreateCutList(CableListViewModel cableListViewModel, List<CableReelViewModel> cableReels)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            // set a default file name
-            saveFileDialog.FileName = $"CutList from '{System.IO.Path.GetFileNameWithoutExtension(cableListViewModel.Filename)}'.xlsx";
-            // set filters - this can be done in properties as well
-            saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                // set a default file name
+                FileName = $"CutList from '{System.IO.Path.GetFileNameWithoutExtension(cableListViewModel.Filename)}'.xlsx",
+                // set filters - this can be done in properties as well
+                Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*"
+            };
 
             if (saveFileDialog.ShowDialog() == true)
             {
@@ -141,13 +136,13 @@ namespace AVCAD.Excel
                         var cableTypes = db.CableTypes.ToList();
                         //Styles
                         //Header Style
-                        SLStyle headerStyle = Excel.ExcelStyles.GetHeaderStyle(sl);
+                        SLStyle headerStyle = ExcelStyles.GetHeaderStyle(sl);
                         //Common cell style
-                        SLStyle commonStyle = Excel.ExcelStyles.GetCommonStyle(sl);
+                        SLStyle commonStyle = ExcelStyles.GetCommonStyle(sl);
                         //Warning style
-                        SLStyle warningStyle = Excel.ExcelStyles.GetWarningStyle(sl);
+                        SLStyle warningStyle = ExcelStyles.GetWarningStyle(sl);
                         //Error style
-                        SLStyle errorStyle = Excel.ExcelStyles.GetErrorStyle(sl);
+                        SLStyle errorStyle = ExcelStyles.GetErrorStyle(sl);
                         // Sort the collection to get it with multicore and cablenumber sorted.
                         var sortedCables = cableListViewModel.Cables
                             .OrderByDescending(i => i.IsMulticore)
@@ -300,7 +295,7 @@ namespace AVCAD.Excel
         /// <param name="cableReels">CableReelViewModel with all the reels </param>
         /// <param name="cableTypes">CableTypes from the database</param>
         /// <returns></returns>
-        private static List<CableReelsInUsage> CalculateReels(in CableListViewModel cableListViewModel,in List<ViewModels.CableReelViewModel> cableReels, in List<CableType> cableTypes)
+        private static List<CableReelsInUsage> CalculateReels(in CableListViewModel cableListViewModel,in List<CableReelViewModel> cableReels, in List<CableType> cableTypes)
         {
             //Define variables for this method
             var cableReelsInUsage = new List<CableReelsInUsage>();
@@ -386,7 +381,7 @@ namespace AVCAD.Excel
             foreach (var reel in cableReelsInUsage)
             {
                 list.Add(reel.ToString());
-                reel.Number = list.Where(x => x == reel.ToString()).Count();
+                reel.Number = list.Count(x => x == reel.ToString());
             }
             //Return sorted reels.
             return cableReelsInUsage.OrderBy(x => x.Name).ToList();
@@ -398,22 +393,24 @@ namespace AVCAD.Excel
         /// <param name="cableListViewModel">Current cablelistviewmodel</param>
         internal static void SaveCableList(CableListViewModel cableListViewModel)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            // set a default file name
-            saveFileDialog.FileName = $"Save for '{System.IO.Path.GetFileNameWithoutExtension(cableListViewModel.Filename)}'.xlsx";
-            // set filters - this can be done in properties as well
-            saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                // set a default file name
+                FileName = $"Save for '{System.IO.Path.GetFileNameWithoutExtension(cableListViewModel.Filename)}'.xlsx",
+                // set filters - this can be done in properties as well
+                Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*"
+            };
 
             if (saveFileDialog.ShowDialog() == true)
             {
                 //Create a new Spreadsheet Light document
                 using (SLDocument sl = new SLDocument())
                 {
-                    var headerStyle = Excel.ExcelStyles.GetHeaderStyle(sl);
-                    var commonStyle = Excel.ExcelStyles.GetCommonStyle(sl);
+                    var headerStyle = ExcelStyles.GetHeaderStyle(sl);
+                    var commonStyle = ExcelStyles.GetCommonStyle(sl);
                     int columnNumber = 1;
                     //Create headers
-                    foreach (var header in _importHeaders)
+                    foreach (var header in importHeaders)
                     {
                         sl.SetCellValue(1, columnNumber, header);
                         sl.SetCellStyle(1, columnNumber, headerStyle);
@@ -471,7 +468,7 @@ namespace AVCAD.Excel
                         rowNumber++;
                     }
                     //Final properties and saving;
-                    sl.AutoFitColumn(1, _importHeaders.Count);
+                    sl.AutoFitColumn(1, importHeaders.Count);
                     sl.SaveAs(saveFileDialog.FileName);
                     MessageBox.Show("Success");
                 }
@@ -481,14 +478,14 @@ namespace AVCAD.Excel
         /// <summary>
         /// This class is inherited from the cable reels with some additional parameters which show cables, leftover and number of this cable reel in order.
         /// </summary>
-        private class CableReelsInUsage : Models.CableReel
+        private class CableReelsInUsage : CableReel
         {
             //Leftover of cable length
             public double LeftOver { get; set; }
             //Number of the reel
             public int Number { get; set; }
             //Cables inside the reel
-            public List<ViewModels.CableViewModel> Cables { get; set; }
+            public List<CableViewModel> Cables { get; set; }
 
 
             /// <summary>
@@ -504,7 +501,7 @@ namespace AVCAD.Excel
             /// Method that replaces properties of the cable reel.
             /// </summary>
             /// <param name="reel">Reel that we have to use to replace fields</param>
-            public void ReplaceCableReel(in ViewModels.CableReelViewModel reel)
+            public void ReplaceCableReel(in CableReelViewModel reel)
             {
                 LeftOver -= Length - reel.Length;
                 Length = reel.Length;

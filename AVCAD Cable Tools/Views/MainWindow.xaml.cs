@@ -1,20 +1,7 @@
-﻿using AVCAD.ViewModels;
-using AVCAD.ViewModels.Settings;
-using DocumentFormat.OpenXml.Wordprocessing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AVCAD.Settings;
+using AVCAD.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Frame = System.Windows.Controls.Frame;
 
 namespace AVCAD.Views

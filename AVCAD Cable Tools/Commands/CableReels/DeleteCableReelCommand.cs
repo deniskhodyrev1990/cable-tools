@@ -1,11 +1,7 @@
-﻿using AVCAD.Models;
-using AVCAD.ViewModels;
+﻿using AVCAD.ViewModels;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AVCAD.Commands.CableReels
@@ -15,7 +11,7 @@ namespace AVCAD.Commands.CableReels
     /// </summary>
     public class DeleteCableReelCommand : CommandBase
     {
-        private CableReelsPageViewModel cableReelsPageViewModel;
+        private CableReelsPageViewModel _cableReelsPageViewModel;
 
         /// <summary>
         /// constructor
@@ -23,7 +19,7 @@ namespace AVCAD.Commands.CableReels
         /// <param name="cableReelsPageViewModel">View model for the page</param>
         public DeleteCableReelCommand(CableReelsPageViewModel cableReelsPageViewModel)
         {
-            this.cableReelsPageViewModel = cableReelsPageViewModel;
+            this._cableReelsPageViewModel = cableReelsPageViewModel;
         }
 
         /// <summary>
@@ -38,7 +34,7 @@ namespace AVCAD.Commands.CableReels
                 if (enumerable == null)
                     throw new ArgumentException("parameter has to be an IEnumerable.", "parameter");
                 //Get selected CableViewModels from the parameter.
-                var selectedReels = enumerable.OfType<ViewModels.CableReelViewModel>().ToList();
+                var selectedReels = enumerable.OfType<CableReelViewModel>().ToList();
 
                 //Ask if user realy wants to delete this item.
                 var dialog = MessageBox.Show("Do you want to delete selected cable reels from the database?", "Warning", MessageBoxButton.YesNo);
@@ -58,7 +54,7 @@ namespace AVCAD.Commands.CableReels
                         }
                         db.SaveChanges();
                     }
-                    cableReelsPageViewModel.UpdateData();
+                    _cableReelsPageViewModel.UpdateData();
 
                 }
             }

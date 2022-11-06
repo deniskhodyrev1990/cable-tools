@@ -60,16 +60,16 @@
                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button 
-                    x:Name="SubmitBNT"
+                    x:Name="SubmitBtn"
                     Content="Submit"
                     Margin="10"
                     Click="SubmitBNT_Click"
                     ></Button>
                 <Button 
-                    x:Name="CancelBNT"
+                    x:Name="CancelBtn"
                     Content="Cancel"
                     Margin="10"
-                    HorizontalAlignment="Right" Click="CancelBNT_Click"
+                    HorizontalAlignment="Right" Click="CancelBNT_Click" Cursor="Hand"
                     ></Button>
             </StackPanel>
         </StackPanel>

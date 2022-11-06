@@ -1,10 +1,4 @@
 ﻿using AVCAD.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace AVCAD.Commands.CableList
 {
@@ -13,11 +7,11 @@ namespace AVCAD.Commands.CableList
     /// </summary>
     public class SaveExcelFileCommand : CommandBase
     {
-        private CableListViewModel cableListViewModel;
+        private CableListViewModel _cableListViewModel;
 
         public SaveExcelFileCommand(CableListViewModel cableListViewModel)
         {
-            this.cableListViewModel = cableListViewModel;
+            this._cableListViewModel = cableListViewModel;
         }
 
         /// <summary>
@@ -26,7 +20,7 @@ namespace AVCAD.Commands.CableList
         /// <param name="parameter"></param>
         public override void Execute(object? parameter)
         {
-            Excel.ExcelMethods.SaveCableList(cableListViewModel);
+            Excel.ExcelMethods.SaveCableList(_cableListViewModel);
         }
     }
 }

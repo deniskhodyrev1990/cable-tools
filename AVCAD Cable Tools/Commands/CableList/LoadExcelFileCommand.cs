@@ -1,9 +1,5 @@
 ﻿using AVCAD.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AVCAD.Commands.CableList
 {
@@ -41,22 +37,22 @@ namespace AVCAD.Commands.CableList
                     _cableListViewModel.Clear();
                     //Set the filename
                     _cableListViewModel.Filename = fileName;
-                    //First iterations is for creating the CableViewModels from Models.Cable
+                    //First iterations is for creating the CableViewModels from Cable
                     foreach (var cable in cables)
                         _cableListViewModel.AddCable(cable);
                     //Second iteration to set all the connections between the multicore members.
                     foreach (var cable in _cableListViewModel.Cables)
                     {
-                        //if cable is multicores then it is necessary to find all the date from Models.Cable with multicores
+                        //if cable is multicores then it is necessary to find all the date from Cable with multicores
                         if (cable.IsMulticore)
                         {
                             //Find first, split multicores, find CableViewModels, add to collection. Done.
-                            var c = cables.Where(i => i.CableNumber == cable.CableNumber).First();
+                            var c = cables.First(i => i.CableNumber == cable.CableNumber);
                             // TODO Exception if can not split.
                             var cableNumbers = c.MulticoreMembers.Split(',').ToList();
                             foreach (var cableNumber in cableNumbers)
                             {
-                                var multicoreMember = _cableListViewModel.Cables.Where(i => i.CableNumber == cableNumber).First();
+                                var multicoreMember = _cableListViewModel.Cables.First(i => i.CableNumber == cableNumber);
                                 cable.MulticoreMembers.Add(multicoreMember);
                             }
                         }

@@ -1,44 +1,36 @@
-﻿using AVCAD.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
+using AVCAD.Models;
 
 namespace AVCAD.ViewModels
 {
+
+    /// <summary>
+    /// ViewModel for Cable. 
+    /// </summary>
     public class CableViewModel : ViewModelBase
     {
-        private readonly Models.Cable _cable;
+        private readonly Cable _cable;
         private bool isSelected;
         private ObservableCollection<CableViewModel> multicoreMembers;
         private double cableLength;
         private double extraLength;
         private string cableType;
 
+        //Fields connected to Cable
         public string CableNumber => _cable.CableNumber;
-        public string? SysnameOut => _cable.SysnameOut;
-        public string? ConnectorOut => _cable.ConnectorOut;
-        public string? PortOut => _cable.DescriptionOut;
-        public string? LocationOut => _cable.LocationOut;
-        public string? ModelOut => _cable.ModelOut;
-        public string? SysnameIn => _cable.SysnameIn;
-        public string? ConnectorIn => _cable.ConnectorIn;
-        public string? PortIn => _cable.DescriptionIn;
-        public string? LocationIn => _cable.LocationIn;
-        public string? ModelIn => _cable.ModelIn;
+        public string SysnameOut => _cable.SysnameOut;
+        public string ConnectorOut => _cable.ConnectorOut;
+        public string PortOut => _cable.DescriptionOut;
+        public string LocationOut => _cable.LocationOut;
+        public string ModelOut => _cable.ModelOut;
+        public string SysnameIn => _cable.SysnameIn;
+        public string ConnectorIn => _cable.ConnectorIn;
+        public string PortIn => _cable.DescriptionIn;
+        public string LocationIn => _cable.LocationIn;
+        public string ModelIn => _cable.ModelIn;
 
-        public Visibility SysnameOutVisible
-        {
-            get
-            {
-                return Properties.Settings.Default.SysnameOutVisibility ? Visibility.Visible : Visibility.Collapsed;
-            }
-        }
+        //Cable Type with some changing when the cable is multicore.
         public string CableType
         {
             get
@@ -60,6 +52,7 @@ namespace AVCAD.ViewModels
             }
         }
 
+        //Cable Length with some changing when the cable is multicore.
         public double CableLength
         {
             get
@@ -81,6 +74,7 @@ namespace AVCAD.ViewModels
             }
         }
 
+        //Bool if the cable is inside the multicore
         public bool IsMulticore
         {
             get
@@ -94,6 +88,7 @@ namespace AVCAD.ViewModels
             }
         }
 
+        //Multicore members.
         public ObservableCollection<CableViewModel> MulticoreMembers
         {
             get
@@ -112,6 +107,7 @@ namespace AVCAD.ViewModels
             }
         }
 
+        //Is selected flag. Obsolete.
         public bool IsSelected
         {
             get { return isSelected; }
@@ -120,7 +116,7 @@ namespace AVCAD.ViewModels
                 isSelected = value;
             }
         }
-
+        //Extra Length with some changing when the cable is multicore.
         public double ExtraLength
         {
             get
@@ -144,7 +140,11 @@ namespace AVCAD.ViewModels
 
 
 
-        public CableViewModel(Models.Cable cable)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="cable">Cable</param>
+        public CableViewModel(Cable cable)
         {
             _cable = cable;
             CableLength = cable.CableLength;
@@ -158,34 +158,53 @@ namespace AVCAD.ViewModels
             }
         }
 
-        public CableViewModel()
-        {
-        }
-
-        public void RemoveMulticoreMember(ViewModels.CableViewModel cvm)
+        /// <summary>
+        /// Method to remove cableviewmodel from the collection
+        /// </summary>
+        /// <param name="cvm"></param>
+        public void RemoveMulticoreMember(CableViewModel cvm)
         {
             MulticoreMembers.Remove(cvm);
             OnPropertyChanged("MulticoreMembers");
         }
 
-        public void ChangeMulticoreLength(ViewModels.CableViewModel cvm, double length)
+        /// <summary>
+        /// Method to change multicore length
+        /// </summary>
+        /// <param name="cvm"></param>
+        /// <param name="length"></param>
+        public void ChangeMulticoreLength(CableViewModel cvm, double length)
         {
             cvm.CableLength = length;
             OnPropertyChanged("CableLength");
         }
 
+        /// <summary>
+        /// Method to change multicore type
+        /// </summary>
+        /// <param name="cvm"></param>
+        /// <param name="cableType"></param>
         private void ChangeMulticoreType(CableViewModel cvm, string cableType)
         {
             cvm.CableType = cableType;
             OnPropertyChanged("CableType");
         }
 
+        /// <summary>
+        /// method to change extra length
+        /// </summary>
+        /// <param name="cvm"></param>
+        /// <param name="extraLength"></param>
         private void ChangeExtraLength(CableViewModel cvm, double extraLength)
         {
             cvm.ExtraLength = extraLength;
             OnPropertyChanged("ExtraLength");
         }
 
+        /// <summary>
+        /// Just override method
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return this.CableNumber;

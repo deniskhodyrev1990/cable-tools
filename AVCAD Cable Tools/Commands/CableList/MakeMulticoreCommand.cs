@@ -1,12 +1,8 @@
-﻿using AVCAD.ViewModels;
-using System;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using AVCAD.ViewModels;
 
 namespace AVCAD.Commands.CableList
 {
@@ -30,7 +26,7 @@ namespace AVCAD.Commands.CableList
                 throw new ArgumentException("parameter has to be an IEnumerable.", "parameter");
 
             //Get cables from the parameter
-            var selectedCables = enumerable.OfType<ViewModels.CableViewModel>().ToList();
+            var selectedCables = enumerable.OfType<CableViewModel>().ToList();
             //if it has at least a cable
             if (selectedCables.Count > 0)
             {
@@ -44,7 +40,7 @@ namespace AVCAD.Commands.CableList
                         //Foreach of cable set these properties.
                         foreach (var cable in selectedCables)
                         {
-                            cable.MulticoreMembers = new ObservableCollection<ViewModels.CableViewModel>(selectedCables);
+                            cable.MulticoreMembers = new ObservableCollection<CableViewModel>(selectedCables);
                             cable.IsMulticore = true;
                             cable.CableLength = cmp.Cable.CableLength;
                             cable.ExtraLength = cmp.Cable.ExtraLength;

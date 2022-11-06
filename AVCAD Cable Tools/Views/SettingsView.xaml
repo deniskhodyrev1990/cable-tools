@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:AVCAD.Views"
       mc:Ignorable="d" 
       Title="SettingsView">
     <Grid>
@@ -24,11 +23,15 @@
                     <CheckBox Content="Location In" IsChecked="{Binding LocationInVisible, Mode=TwoWay}"></CheckBox>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Database Location">
+            <GroupBox Header="Database Settings">
                 <StackPanel Orientation="Horizontal">
                     <Button
-                        Content="Change Database Folder" 
+                        Content="Change Database location" 
                         Command="{Binding ChangeDatabaseLocationCommand}" Margin="0,0,10,0"
+                        />
+                    <Button
+                        Content="Save database to another location" 
+                        Command="{Binding SaveDatabaseToAnotherLocationCommand}" Margin="0,0,10,0" Cursor="Hand"
                         />
                     <Border BorderThickness="1" BorderBrush="Black">
                         <TextBlock 
@@ -40,6 +43,7 @@
                     </Border>
 
                 </StackPanel>
+                
             </GroupBox>
         </StackPanel>
     </Grid>

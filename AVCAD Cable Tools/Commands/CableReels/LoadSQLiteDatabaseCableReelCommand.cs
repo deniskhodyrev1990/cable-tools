@@ -1,12 +1,4 @@
 ﻿using AVCAD.ViewModels;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace AVCAD.Commands.CableReels
 {
@@ -15,7 +7,7 @@ namespace AVCAD.Commands.CableReels
     /// </summary>
     public class LoadSQLiteDatabaseCableReelCommand : CommandBase
     {
-        private CableReelsPageViewModel cableReelPageViewModel;
+        private CableReelsPageViewModel _cableReelPageViewModel;
 
         /// <summary>
         /// Constructor
@@ -23,7 +15,7 @@ namespace AVCAD.Commands.CableReels
         /// <param name="cableReelPageViewModel"></param>
         public LoadSQLiteDatabaseCableReelCommand(CableReelsPageViewModel cableReelPageViewModel)
         {
-            this.cableReelPageViewModel = cableReelPageViewModel;
+            this._cableReelPageViewModel = cableReelPageViewModel;
         }
 
         /// <summary>
@@ -32,7 +24,7 @@ namespace AVCAD.Commands.CableReels
         /// <param name="parameter">It is not used here.</param>
         public override void Execute(object? parameter)
         {
-            cableReelPageViewModel.UpdateData();
+            _cableReelPageViewModel.UpdateData();
         }
     }
 }

@@ -1,14 +1,9 @@
 ﻿using AVCAD.Models;
-using AVCAD.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using AVCAD.ViewModels;
+
 
 namespace AVCAD.Commands.CableList
 {
@@ -29,7 +24,7 @@ namespace AVCAD.Commands.CableList
             if (enumerable == null)
                 throw new ArgumentException("parameter has to be an IEnumerable.", "parameter");
             //Get selected cables
-            var selectedCables = enumerable.OfType<ViewModels.CableViewModel>().ToList();
+            var selectedCables = enumerable.OfType<CableViewModel>().ToList();
 
             using (var db = new SQlite.ApplicationContext())
             {

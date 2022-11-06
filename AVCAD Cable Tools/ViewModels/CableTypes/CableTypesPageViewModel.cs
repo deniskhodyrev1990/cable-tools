@@ -1,14 +1,6 @@
-﻿using AVCAD.Models;
-using AVCAD.SQlite;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using AVCAD.Models;
 
 namespace AVCAD.ViewModels
 {
@@ -17,7 +9,7 @@ namespace AVCAD.ViewModels
     /// </summary>
     public class CableTypesPageViewModel : ViewModelBase
     {
-        public ObservableCollection<ViewModels.CableTypesViewModel> CableTypes { get; set; }
+        public ObservableCollection<CableTypesViewModel> CableTypes { get; set; }
         //Command to load data from the database
         public ICommand LoadSQLiteDatabaseCableTypeCommand { get; }
         //Command to add a cable type
@@ -33,15 +25,15 @@ namespace AVCAD.ViewModels
             AddCableTypeCommand = new Commands.CableTypes.CreateEditCableTypesCommand(this);
             EditCableTypeCommand = new Commands.CableTypes.CreateEditCableTypesCommand(this, false);
             DeleteCableTypeCommand = new Commands.CableTypes.DeleteCableTypeCommand(this);
-            this.CableTypes = new ObservableCollection<ViewModels.CableTypesViewModel>();
+            this.CableTypes = new ObservableCollection<CableTypesViewModel>();
         }
 
 
         /// <summary>
-        /// A method that translates Models.CableType to ViewModels.CableTypesViewModel and adds it to the current ObservableCollection
+        /// A method that translates CableType to CableTypesViewModel and adds it to the current ObservableCollection
         /// </summary>
-        /// <param name="cableType">Models.CableType from an SQLite database</param>
-        public void AddCableType(Models.CableType cableType)
+        /// <param name="cableType">CableType from an SQLite database</param>
+        public void AddCableType(CableType cableType)
         {
             CableTypes.Add(new CableTypesViewModel(cableType));
         }

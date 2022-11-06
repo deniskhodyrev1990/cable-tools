@@ -1,12 +1,6 @@
-﻿using AVCAD.Models;
-using AVCAD.ViewModels;
-using DocumentFormat.OpenXml.Presentation;
-using System;
-using System.Collections.Generic;
+﻿using AVCAD.ViewModels;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using AVCAD.CableReels;
 
 namespace AVCAD.Commands.CableList
 {
@@ -15,15 +9,15 @@ namespace AVCAD.Commands.CableList
     /// </summary>
     public class CreateCutListCommand: CommandBase
     {
-        private CableListViewModel cableListViewModel;
+        private CableListViewModel _cableListViewModel;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="cableListViewModel">Current cableListViewModel</param>
+        /// <param name="cableListViewModel">Current _cableListViewModel</param>
         public CreateCutListCommand(CableListViewModel cableListViewModel)
         {
-            this.cableListViewModel = cableListViewModel;
+            this._cableListViewModel = cableListViewModel;
         }
 
         /// <summary>
@@ -33,21 +27,15 @@ namespace AVCAD.Commands.CableList
         public override void Execute(object? parameter)
         {
             //Open the database connection
-            using (var db = new SQlite.ApplicationContext())
+            //Here a new viewmodel created to pass it to the window to select the cable reels.
+            var cutListPropertiesViewModel = new CutListPropertiesViewModel();
+            var clepWindow = new GUI.CutListExportProperties(cutListPropertiesViewModel);
+            if (clepWindow.ShowDialog() == true)
             {
-                //Here a new viewmodel created to pass it to the window to select the cable reels.
-                var cutListPropertiesViewModel = new ViewModels.CableReels.CutListPropertiesViewModel();
-                var clepWindow = new GUI.CutListExportProperties(cutListPropertiesViewModel);
-                if (clepWindow.ShowDialog() == true)
-                {
-                    //Get reels and export an excel file.
-                    var selectedReels = cutListPropertiesViewModel.CableReels.Where(i => i.IsSelected).ToList();
-                    Excel.ExcelMethods.CreateCutList(cableListViewModel, selectedReels);
-                }
-
-
+                //Get reels and export an excel file.
+                var selectedReels = cutListPropertiesViewModel.CableReels.Where(i => i.IsSelected).ToList();
+                Excel.ExcelMethods.CreateCutList(_cableListViewModel, selectedReels);
             }
-            
         }
     }
 }

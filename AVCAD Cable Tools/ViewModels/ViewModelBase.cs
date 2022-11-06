@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace AVCAD.ViewModels
 {
+    /// <summary>
+    /// Implementation of the INotifyPropertyChanged interface.
+    /// </summary>
     public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
-        /// 
+        /// Realisation of the standards OnPropertyChanged Method.
         /// </summary>
         /// <param name="propertyName"></param>
         protected void OnPropertyChanged(string propertyName)
@@ -20,10 +18,5 @@ namespace AVCAD.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected void RaisePropertyChanged(string propertyName)
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

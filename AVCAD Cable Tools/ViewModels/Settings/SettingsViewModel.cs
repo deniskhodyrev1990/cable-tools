@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using AVCAD.ViewModels;
 
-namespace AVCAD.ViewModels.Settings
+namespace AVCAD.Settings
 {
+    /// <summary>
+    /// View Model for the settings page view
+    /// </summary>
     public class SettingsViewModel: ViewModelBase
     {
+        //Visibility Section
         public bool SysnameOutVisible
         {
             get
@@ -37,7 +37,6 @@ namespace AVCAD.ViewModels.Settings
                 OnPropertyChanged("ConnectorOutVisible");
             }
         }
-
         public bool PortOutVisible
         {
             get
@@ -52,7 +51,6 @@ namespace AVCAD.ViewModels.Settings
                 OnPropertyChanged("PortOutVisible");
             }
         }
-
         public bool ModelOutVisible
         {
             get
@@ -67,7 +65,6 @@ namespace AVCAD.ViewModels.Settings
                 OnPropertyChanged("ModelOutVisible");
             }
         }
-
         public bool LocationOutVisible
         {
             get
@@ -82,7 +79,6 @@ namespace AVCAD.ViewModels.Settings
                 OnPropertyChanged("LocationOutVisible");
             }
         }
-
         public bool SysnameInVisible
         {
             get
@@ -111,7 +107,6 @@ namespace AVCAD.ViewModels.Settings
                 OnPropertyChanged("ConnectorInVisible");
             }
         }
-
         public bool PortInVisible
         {
             get
@@ -126,7 +121,6 @@ namespace AVCAD.ViewModels.Settings
                 OnPropertyChanged("PortInVisible");
             }
         }
-
         public bool ModelInVisible
         {
             get
@@ -141,7 +135,6 @@ namespace AVCAD.ViewModels.Settings
                 OnPropertyChanged("ModelInVisible");
             }
         }
-
         public bool LocationInVisible
         {
             get
@@ -156,7 +149,7 @@ namespace AVCAD.ViewModels.Settings
                 OnPropertyChanged("LocationInVisible");
             }
         }
-
+        //Path to database
         public string PathToDatabase
         {
             get
@@ -170,12 +163,14 @@ namespace AVCAD.ViewModels.Settings
                 OnPropertyChanged(nameof(PathToDatabase));
             }
         }
-
+        //Command to Change the database location
         public ICommand ChangeDatabaseLocationCommand { get; }
+        public ICommand SaveDatabaseToAnotherLocationCommand { get; }
 
         public SettingsViewModel()
         {
             ChangeDatabaseLocationCommand = new Commands.Settings.ChangeDatabaseLocationCommand(this);
+            SaveDatabaseToAnotherLocationCommand = new Commands.Settings.SaveDatabaseToAnotherLocationCommand(this);
         }
 
     }

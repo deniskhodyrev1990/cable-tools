@@ -1,11 +1,7 @@
 ﻿using AVCAD.ViewModels;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AVCAD.Commands.CableList
@@ -15,7 +11,7 @@ namespace AVCAD.Commands.CableList
     /// </summary>
     public class ExcludeFromMulticoreCommand : CommandBase
     {
-        private CableListViewModel cableListViewModel;
+        private CableListViewModel _cableListViewModel;
 
         /// <summary>
         /// Constructor
@@ -23,7 +19,7 @@ namespace AVCAD.Commands.CableList
         /// <param name="cableListViewModel"></param>
         public ExcludeFromMulticoreCommand(CableListViewModel cableListViewModel)
         {
-            this.cableListViewModel = cableListViewModel;
+            this._cableListViewModel = cableListViewModel;
         }
 
         /// <summary>
@@ -40,12 +36,12 @@ namespace AVCAD.Commands.CableList
                     throw new ArgumentException("parameter has to be an IEnumerable.", "parameter");
 
                 //Get selected CableViewModels from the parameter.
-                var selectedCables = enumerable.OfType<ViewModels.CableViewModel>().ToList();
+                var selectedCables = enumerable.OfType<CableViewModel>().ToList();
 
                 foreach (var selectedCable in selectedCables)
                 {
                     //Check all the multicores
-                    foreach (var cable in cableListViewModel.Cables.Where(i => i.IsMulticore))
+                    foreach (var cable in _cableListViewModel.Cables.Where(i => i.IsMulticore))
                     {
                         if (cable.MulticoreMembers.Contains(selectedCable))
                         {
