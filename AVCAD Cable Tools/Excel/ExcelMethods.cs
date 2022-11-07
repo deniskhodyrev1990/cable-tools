@@ -281,8 +281,13 @@ namespace AVCAD.Excel
                         sl.Filter("A1", $"F{sortedCables.Count()}");
                         sl.AutoFitColumn(1, exportHeaders.Count);
                         sl.AutoFitRow(1);
-                        sl.SaveAs(saveFileDialog.FileName);
-                        MessageBox.Show("Success");
+                        //If the file is used with another process - inform the user about it.
+                        try
+                        {
+                            sl.SaveAs(saveFileDialog.FileName);
+                            MessageBox.Show("Success");
+                        }
+                        catch (System.IO.IOException ex) { MessageBox.Show(ex.Message); }
                     }
                 }
             }
@@ -315,7 +320,10 @@ namespace AVCAD.Excel
                 //If there is a cable reel that already is in use - add a cable to the collection and calculate a new leftover of cable.
                 if (freeCableReels.Any())
                 {
-                    freeCableReels.First().Cables.Add(cable);
+                    if (cable.IsMulticore)
+                        freeCableReels.First().Cables.AddRange(cable.MulticoreMembers.ToList());
+                    else
+                        freeCableReels.First().Cables.Add(cable);
                     freeCableReels.First().LeftOver -= cableFullLength;
                 }
                 // If not - we will create a reel with a maximum length. We will change the reel later if there is a smaller one with the needed length.
@@ -342,7 +350,11 @@ namespace AVCAD.Excel
                         Name = neededCableReel.Name
                     });
                     //Add some information to the just create cable reel
-                    cableReelsInUsage.Last().Cables.Add(cable);
+                    if (cable.IsMulticore)
+                        cableReelsInUsage.Last().Cables.AddRange(cable.MulticoreMembers.ToList());
+                    else
+                        cableReelsInUsage.Last().Cables.Add(cable);
+
                     cableReelsInUsage.Last().LeftOver -= cableFullLength;
                 }
 
@@ -469,8 +481,13 @@ namespace AVCAD.Excel
                     }
                     //Final properties and saving;
                     sl.AutoFitColumn(1, importHeaders.Count);
-                    sl.SaveAs(saveFileDialog.FileName);
-                    MessageBox.Show("Success");
+                    //If the file is used with another process - inform the user about it.
+                    try
+                    {
+                        sl.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Success");
+                    }
+                    catch (System.IO.IOException ex) { MessageBox.Show(ex.Message); }
                 }
             }
         }
