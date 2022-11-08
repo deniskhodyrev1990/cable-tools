@@ -1,4 +1,6 @@
 ﻿using AVCAD.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using System.Windows;
 
 namespace AVCAD.Commands.CableReels
 {
@@ -24,7 +26,20 @@ namespace AVCAD.Commands.CableReels
         /// <param name="parameter">It is not used here.</param>
         public override void Execute(object? parameter)
         {
-            _cableReelPageViewModel.UpdateData();
+            //Exception if the database is in read-only folder
+            try
+            {
+                _cableReelPageViewModel.UpdateData();
+            }
+            catch (Microsoft.Data.Sqlite.SqliteException ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    MessageBox.Show($"{ex.InnerException.Message}\nPlease, check the permission to that folder");
+                }
+                else
+                    MessageBox.Show(ex.Message);
+            };
         }
     }
 }

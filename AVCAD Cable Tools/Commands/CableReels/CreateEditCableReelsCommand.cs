@@ -81,6 +81,15 @@ namespace AVCAD.Commands.CableReels
                 }
             }
             catch (ArgumentException ex) { MessageBox.Show(ex.Message); }
+            //Exception if the database is in read-only folder
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    MessageBox.Show($"{ex.InnerException.Message}\nPlease, check the permission to that folder");
+                }
+
+            };
         }
     }
 }

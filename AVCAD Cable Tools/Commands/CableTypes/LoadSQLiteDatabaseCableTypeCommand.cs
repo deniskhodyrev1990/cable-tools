@@ -1,4 +1,6 @@
 ﻿using AVCAD.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using System.Windows;
 
 namespace AVCAD.Commands.CableTypes
 {
@@ -24,7 +26,20 @@ namespace AVCAD.Commands.CableTypes
         /// <param name="parameter"></param>
         public override void Execute(object? parameter)
         {
-            _cableTypePageViewModel.UpdateData();
+            //Exception if the database is in read-only folder
+            try
+            {
+                _cableTypePageViewModel.UpdateData();
+            }
+            catch (Microsoft.Data.Sqlite.SqliteException ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    MessageBox.Show($"{ex.InnerException.Message}\nPlease, check the permission to that folder");
+                }
+                else
+                    MessageBox.Show(ex.Message);
+            };
         }
     }
 }

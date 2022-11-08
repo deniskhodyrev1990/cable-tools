@@ -72,12 +72,23 @@ namespace AVCAD.Commands.CableTypes
                         else
                             db.Entry(ct).State = EntityState.Modified;
                         db.SaveChanges();
+
+                        
                     }
                     //Update data.
                     _cableTypesPageViewModel.UpdateData();
                 }
             }
             catch (ArgumentException ex) { MessageBox.Show(ex.Message); }
+            //Exception if the database is in read-only folder
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    MessageBox.Show($"{ex.InnerException.Message}\nPlease, check the permission to that folder");
+                }
+
+            };
         }
     }
 }

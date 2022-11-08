@@ -1,4 +1,5 @@
 ﻿using AVCAD.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Linq;
@@ -56,6 +57,14 @@ namespace AVCAD.Commands.CableTypes
                 }
             }
             catch (ArgumentException ex) { MessageBox.Show(ex.Message); }
+            //Exception if the database is in read-only folder
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    MessageBox.Show($"{ex.InnerException.Message}\nPlease, check the permission to that folder");
+                }
+            };
 
         }
     }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AVCAD Cable Tools": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Program Files (x86)\\AVCAD Cable Tools"
+    }
+  }
+}
