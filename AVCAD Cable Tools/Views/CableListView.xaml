@@ -131,6 +131,11 @@
                             CommandParameter="{Binding PlacementTarget.SelectedItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
                             ></MenuItem>
                         <MenuItem 
+                            Header="Make Multicore" 
+                            Command="{Binding MakeMulticoreCommand}"
+                            CommandParameter="{Binding PlacementTarget.SelectedItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                            ></MenuItem>
+                        <MenuItem 
                             Header="Exclude from multicore" 
                             Command="{Binding ExcludeFromMulticoreCommand}"
                             CommandParameter="{Binding PlacementTarget.SelectedItems, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"

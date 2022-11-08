@@ -1,5 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using AVCAD.Models;
 
 namespace AVCAD.ViewModels
@@ -26,6 +29,15 @@ namespace AVCAD.ViewModels
             EditCableTypeCommand = new Commands.CableTypes.CreateEditCableTypesCommand(this, false);
             DeleteCableTypeCommand = new Commands.CableTypes.DeleteCableTypeCommand(this);
             this.CableTypes = new ObservableCollection<CableTypesViewModel>();
+
+            //On startup call the command to load all the data from database.
+            Application.Current.Dispatcher.Invoke(
+            DispatcherPriority.ApplicationIdle,
+            new Action(() =>
+            {
+                LoadSQLiteDatabaseCableTypeCommand.Execute(this);
+
+            }));
         }
 
 

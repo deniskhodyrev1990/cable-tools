@@ -2,6 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using AVCAD.Models;
+using System.Windows.Threading;
+using System;
+using System.Windows;
 
 namespace AVCAD.ViewModels
 {
@@ -27,6 +30,15 @@ namespace AVCAD.ViewModels
             DeleteCableReelCommand = new Commands.CableReels.DeleteCableReelCommand(this);
             this.CableReels = new ObservableCollection<CableReelViewModel>();
             this.CableTypes = new ObservableCollection<CableType>();
+
+            //On startup call the command to load all the data from database.
+            Application.Current.Dispatcher.Invoke(
+            DispatcherPriority.ApplicationIdle,
+            new Action(() =>
+            {
+                LoadSQLiteDatabaseCableReelsCommand.Execute(this);
+
+            }));
         }
 
 
