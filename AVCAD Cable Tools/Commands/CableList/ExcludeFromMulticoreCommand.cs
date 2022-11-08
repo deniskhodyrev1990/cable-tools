@@ -53,8 +53,8 @@ namespace AVCAD.Commands.CableList
                     }
                     // TODO Check this code
                     //Change properties of the selected cable
-                    //selectedCable.MulticoreMembers = new System.Collections.ObjectModel.ObservableCollection<CableViewModel>();
-                    //selectedCable.IsMulticore = false;
+                    selectedCable.MulticoreMembers = new System.Collections.ObjectModel.ObservableCollection<CableViewModel>();
+                    selectedCable.IsMulticore = false;
                 }
             }
             catch (ArgumentException ex) { MessageBox.Show(ex.Message); }

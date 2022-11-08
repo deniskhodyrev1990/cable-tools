@@ -76,7 +76,7 @@ namespace AVCAD.GUI {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AVCAD Cable Tools;V1.0.0.0;component/gui/createmulticoreproperties.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AVCAD Cable Tools;component/gui/createmulticoreproperties.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\GUI\CreateMulticoreProperties.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
