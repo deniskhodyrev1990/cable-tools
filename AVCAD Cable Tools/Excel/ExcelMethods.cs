@@ -252,7 +252,7 @@ namespace AVCAD.Excel
                         columnNumber = 6;
                         foreach (var reel in reels)
                         {
-                            sl.SetCellValue(rowNumber, columnNumber + 1, reel.LeftOver);
+                            sl.SetCellValue(rowNumber, columnNumber + 1, Math.Round(reel.LeftOver, 2));
                             sl.SetCellStyle(rowNumber, columnNumber + 1, commonStyle);
                             columnNumber++;
                         }
